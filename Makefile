@@ -10,3 +10,16 @@ restart: stop start
 
 test-api:
 	npm run test --workspace=packages/api
+
+KNOXFILE_PATH=./packages/api/knexfile.js
+
+.PHONY: migrate-up migrate-down migrate-create
+
+migrate-up:
+	npx knex migrate:latest --knexfile $(KNOXFILE_PATH)
+
+migrate-down:
+	npx knex migrate:rollback --knexfile $(KNOXFILE_PATH)
+
+migrate-create:
+	npx knex migrate:make "$(name)" --knexfile $(KNOXFILE_PATH)

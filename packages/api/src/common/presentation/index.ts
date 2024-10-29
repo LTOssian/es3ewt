@@ -12,8 +12,7 @@ export class App {
   private readonly _app_port: number = parseInt(process.env?.PORT || "8080");
 
   constructor(appInit: { routes: Array<any> }) {
-    this._app = fastify({ logger: true });
-    // TODO: Database connection
+    this._app = fastify({ logger: process.env.NODE_ENV !== "test" });
 
     initializeContainer();
     this.initializeRoutes(appInit.routes);
