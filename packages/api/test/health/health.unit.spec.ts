@@ -3,7 +3,7 @@ import "reflect-metadata";
 import { container } from "tsyringe";
 import { GetHealthUseCase } from "../../src/features/health/getHealth/get-health.use-case";
 import { destroyContainer, initializeContainer } from "../../di/container";
-import { HealthError } from "../../../core/health/health-error";
+import { HealthError } from "../../../core/health/health.error";
 import { MockSuccessHealthRepository } from "./doubles/MockSuccessHealthRepository";
 import { MockFailHealthRepository } from "./doubles/MockFailHealthRepository";
 

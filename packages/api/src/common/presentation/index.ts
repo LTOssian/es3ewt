@@ -57,7 +57,11 @@ export class App {
             details: error.validation,
           });
         } else if (error.statusCode) {
-          reply.status(error.statusCode).send({ error });
+          reply.status(error.statusCode).send({
+            error: error.name,
+            statusCode: error.statusCode,
+            message: error.message,
+          });
         } else {
           reply.status(500).send({
             statusCode: 500,

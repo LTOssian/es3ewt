@@ -7,6 +7,7 @@ export async function up(knex: Knex): Promise<void> {
       .createTable("user", (table) => {
         table.increments("id").primary();
         table.text("username").notNullable().unique();
+        table.text("password").notNullable();
       })
       .createTable("user_session", (table) => {
         table.text("id").notNullable().primary();

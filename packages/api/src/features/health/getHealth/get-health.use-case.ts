@@ -1,7 +1,7 @@
 import { injectable, inject } from "tsyringe";
 import { BaseUseCase } from "../../../common/interface/base.use-case";
 import { IHealthRepository } from "../repository/health.repository.interface";
-import { HealthError } from "../../../../../core/health/health-error";
+import { HealthError } from "../../../../../core/health/health.error";
 
 @injectable()
 export class GetHealthUseCase
