@@ -1,32 +1,29 @@
-import "reflect-metadata";
+import "reflect-metadata"; // Ensure reflect-metadata is imported for tsyringe
 import { container, injectable } from "tsyringe";
 import { BaseController } from "../../../common/interface/base.controller";
 import {
   healthRequestSchema,
   THealthRequest,
-  THealthResponse,
 } from "../../../../../core/health/health";
-import { FastifyRequest, FastifyReply } from "fastify";
 import { GetHealthUseCase } from "./get-health.use-case";
+import { NextFunction, Request, Response } from "express";
 
 @injectable()
-export class GetHealthController extends BaseController<
-  { Querystring: THealthRequest },
-  THealthResponse
-> {
+export class GetHealthController extends BaseController<THealthRequest> {
   async handle(
-    request: FastifyRequest<{ Querystring: THealthRequest }>,
-    reply: FastifyReply,
-  ): Promise<FastifyReply> {
+    request: Request<THealthRequest>,
+    response: Response,
+    next: NextFunction,
+  ): Promise<void> {
     try {
       const validCredentials = healthRequestSchema.parse(request.query);
       const useCase = container.resolve(GetHealthUseCase);
 
       const result = await useCase.handle(validCredentials);
 
-      return reply.code(200).send(result);
+      response.status(200).send(result);
     } catch (error) {
-      throw error;
+      next(error);
     }
   }
 }

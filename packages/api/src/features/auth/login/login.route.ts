@@ -1,9 +1,9 @@
-import { FastifyInstance } from "fastify";
 import { container } from "tsyringe";
 import { LoginController } from "./login.controller";
+import { Router } from "express";
 
 export class LoginRoute {
-  public static setRoute(fastify: FastifyInstance) {
-    fastify.post("/login", {}, container.resolve(LoginController).handle);
+  public static setRoute(router: Router) {
+    router.post("/login", container.resolve(LoginController).handle);
   }
 }

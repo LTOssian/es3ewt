@@ -1,15 +1,13 @@
 import { FastifyInstance, FastifyPluginOptions } from "fastify";
 import { GetHealthRoute } from "./getHealth/get-health.route";
+import { Router } from "express";
 
 export default class HealthRoute {
   public prefix_route = "/health";
 
-  setRoutes(
-    fastify: FastifyInstance,
-    _options: FastifyPluginOptions,
-    done: any,
-  ) {
-    GetHealthRoute.setRoute(fastify);
-    done();
+  setRoutes(router: Router) {
+    const healthRouter = Router();
+    GetHealthRoute.setRoute(healthRouter);
+    router.use(this.prefix_route, healthRouter);
   }
 }

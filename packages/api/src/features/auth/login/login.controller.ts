@@ -7,25 +7,26 @@ import {
   TLoginResponse,
 } from "../../../../../core/auth/auth";
 import { LoginUseCase } from "./login.use-case";
+import { NextFunction, Request, Response } from "express";
 
 @injectable()
-export class LoginController extends BaseController<
-  { Body: { username: string; password: string } },
-  TLoginResponse
-> {
+export class LoginController extends BaseController<{
+  Body: { username: string; password: string };
+}> {
   async handle(
-    request: FastifyRequest<{ Body: { username: string; password: string } }>,
-    reply: FastifyReply,
-  ): Promise<FastifyReply> {
+    request: Request<{ Body: { username: string; password: string } }>,
+    reply: Response,
+    next: NextFunction,
+  ): Promise<void> {
     try {
       const validCredentials = authRequestSchema.parse(request.body);
       const useCase = container.resolve(LoginUseCase);
 
       const token = await useCase.handle(validCredentials);
 
-      return reply.code(200).send({ message: "Login successful", token });
+      reply.status(200).send({ message: "Login successful", token });
     } catch (error) {
-      throw error;
+      next(error);
     }
   }
 }

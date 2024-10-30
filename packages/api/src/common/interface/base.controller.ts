@@ -1,11 +1,9 @@
-import { FastifyReply, FastifyRequest, RouteGenericInterface } from "fastify";
+import { NextFunction, Request, Response } from "express";
 
-export abstract class BaseController<
-  TRequest extends RouteGenericInterface,
-  TResponse,
-> {
+export abstract class BaseController<TRequest> {
   abstract handle(
-    request: FastifyRequest<TRequest>,
-    reply: FastifyReply,
-  ): Promise<FastifyReply>;
+    request: Request<TRequest>,
+    response: Response,
+    next: NextFunction,
+  ): void;
 }

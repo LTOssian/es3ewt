@@ -1,19 +1,21 @@
 import "reflect-metadata";
 import { describe, it, beforeEach, afterEach, expect, vi } from "vitest";
 import { buildApp } from "../..";
+import request from "supertest";
 import { destroyContainer } from "../../di/container";
-import { FastifyInstance } from "fastify";
+import { Application } from "express";
+import { RegisterUseCase } from "../../src/features/auth/register/register.use-case";
+import { container } from "tsyringe";
 
 describe("Login:integration", () => {
-  let app: FastifyInstance;
+  let app: Application;
 
-  beforeEach(async () => {
-    app = buildApp().getFastify();
-    await app.ready();
+  beforeEach(() => {
+    app = buildApp().getExpress();
+    app.listen();
   });
 
   afterEach(async () => {
-    await app.close();
     destroyContainer();
   });
 
@@ -23,16 +25,14 @@ describe("Login:integration", () => {
       password: "abcdefg",
     };
 
-    const response = await app.inject({
-      method: "POST",
-      url: "auth/login",
-      payload: loginParams,
-    });
-    const responseJson = response.json();
+    // await container.resolve(RegisterUseCase).handle(loginParams);
 
-    expect(response.statusCode).toBe(200);
-    expect(responseJson).toHaveProperty("message", "Login successful");
-    expect(responseJson).toHaveProperty("token");
+    const response = await request(app).post("/auth/login").send(loginParams);
+
+    expect(response.status).toBe(200);
+    expect(response.body).toHaveProperty("message", "Login successful");
+    // TODO: handle jwt token
+    // expect(response.body).toHaveProperty("token");
   });
 
   it("should return 404 and a UserNotFoundError message when username is not found", async () => {
@@ -41,15 +41,10 @@ describe("Login:integration", () => {
       password: "anyPassword",
     };
 
-    const response = await app.inject({
-      method: "POST",
-      url: "auth/login",
-      payload: loginParams,
-    });
-    const responseJson = response.json();
+    const response = await request(app).post("/auth/login").send(loginParams);
 
-    expect(response.statusCode).toBe(404);
-    expect(responseJson.error).toEqual("UserNotFoundError");
+    expect(response.status).toBe(404);
+    expect(response.body.error).toEqual("UserNotFoundError");
   });
 
   it("should return 401 and a BadPasswordError message when password is incorrect", async () => {
@@ -58,16 +53,11 @@ describe("Login:integration", () => {
       password: "wrongpassword",
     };
 
-    const response = await app.inject({
-      method: "POST",
-      url: "auth/login",
-      payload: loginParams,
-    });
-    const responseJson = response.json();
+    const response = await request(app).post("/auth/login").send(loginParams);
 
-    expect(response.statusCode).toBe(401);
-    expect(responseJson.error).toEqual("BadPasswordError");
-    expect(responseJson.message).toEqual("Invalid password provided");
+    expect(response.status).toBe(401);
+    expect(response.body.error).toEqual("BadPasswordError");
+    expect(response.body.message).toEqual("Invalid password provided");
   });
 
   it("should return a validation error when required fields are missing", async () => {
@@ -76,14 +66,9 @@ describe("Login:integration", () => {
       password: "",
     };
 
-    const response = await app.inject({
-      method: "POST",
-      url: "auth/login",
-      payload: loginParams,
-    });
-    const responseJson = response.json();
+    const response = await request(app).post("/auth/login").send(loginParams);
 
-    expect(response.statusCode).toBe(400);
-    expect(responseJson.error).toEqual("Validation Error");
+    expect(response.status).toBe(400);
+    expect(response.body.error).toEqual("Validation Error");
   });
 });

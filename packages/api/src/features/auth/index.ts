@@ -1,17 +1,15 @@
 import { FastifyInstance, FastifyPluginOptions } from "fastify";
 import { LoginRoute } from "./login/login.route";
 import { RegisterRoute } from "./register/register.route";
+import { Router } from "express";
 
 export default class AuthRoute {
   public prefix_route = "/auth";
 
-  setRoutes(
-    fastify: FastifyInstance,
-    _options: FastifyPluginOptions,
-    done: any,
-  ) {
-    LoginRoute.setRoute(fastify);
-    RegisterRoute.setRoute(fastify);
-    done();
+  setRoutes(router: Router) {
+    const authRouter = Router();
+    LoginRoute.setRoute(authRouter);
+    RegisterRoute.setRoute(authRouter);
+    router.use(this.prefix_route, authRouter);
   }
 }

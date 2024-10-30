@@ -1,27 +1,25 @@
 import { container, injectable } from "tsyringe";
 import { BaseController } from "../../../common/interface/base.controller";
-import { FastifyRequest, FastifyReply } from "fastify";
 import { authRequestSchema, TAuthRequest } from "../../../../../core/auth/auth";
 import { RegisterUseCase } from "./register.use-case";
+import { NextFunction, Request, Response } from "express";
 
 @injectable()
-export class RegisterController extends BaseController<
-  { Body: TAuthRequest },
-  void
-> {
+export class RegisterController extends BaseController<{ Body: TAuthRequest }> {
   async handle(
-    request: FastifyRequest<{ Body: TAuthRequest }>,
-    reply: FastifyReply,
-  ): Promise<FastifyReply> {
+    request: Request<{ Body: TAuthRequest }>,
+    response: Response,
+    next: NextFunction,
+  ): Promise<void> {
     try {
       const validCredentials = authRequestSchema.parse(request.body);
       const useCase = container.resolve(RegisterUseCase);
 
       await useCase.handle(validCredentials);
 
-      return reply.code(201).send();
+      response.status(201).send();
     } catch (error) {
-      throw error;
+      next(error);
     }
   }
 }
