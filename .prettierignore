@@ -1,0 +1,6 @@
+# Ignore YAML files
+*.yaml
+*.yml
+
+# Ignore Dockerfile
+Dockerfile.api.yaml

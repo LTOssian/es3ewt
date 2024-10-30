@@ -1,0 +1,24 @@
+# Dockerfile.api
+
+FROM node:23-alpine3.19
+
+# Set working directory for the entire app
+WORKDIR /app
+
+COPY package*.json ./
+
+COPY packages/api/package*.json packages/api/
+COPY packages/core/package*.json packages/core/
+
+ENV HUSKY=0
+
+RUN npm install --legacy-peer-deps
+
+COPY packages/api packages/api
+COPY packages/core packages/core
+
+WORKDIR /app/packages/api
+
+EXPOSE 8080
+
+CMD ["npm", "run", "dev"]

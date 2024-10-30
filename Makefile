@@ -1,9 +1,8 @@
 start:
-	docker compose -f docker-compose.yaml up -d --build
-	npm run start:api
+	docker compose -f docker/docker-compose.yaml up -d --build
 
 stop:
-	docker compose -f docker-compose.yaml down
+	docker compose -f docker/docker-compose.yaml down
 	pkill -f "tsx watch"
 
 restart: stop start
@@ -23,7 +22,7 @@ migrate-down:
 
 migrate-create:
 	npx knex migrate:make "$(name)" --knexfile $(KNOXFILE_PATH)
-	
+
 seed:
 	npx knex seed:run --knexfile $(KNOXFILE_PATH)
 

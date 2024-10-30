@@ -1,0 +1,54 @@
+services:
+  filecase-db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: filecase_user
+      POSTGRES_PASSWORD: filecase_hetic
+      POSTGRES_DB: filecase
+    volumes:
+      - ./filecase-db:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  filecase-minio:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - "./minio-data:/var/lib/minio/data"
+
+  api:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile.api.yaml
+    ports:
+      - "8080:8080"
+    depends_on:
+      - filecase-db
+      - filecase-minio
+    environment:
+      CONNECTION_STRING: "postgresql://filecase_user:filecase_hetic@filecase-db:5432/filecase"
+      JWT_SECRET: "superSecret"
+      JWT_EXPIRATION: "1h"
+    volumes:
+      - ../packages/api:/app/packages/api
+      - ../packages/core:/app/packages/core
+      - /app/packages/api/node_modules
+
+  #  client:
+  #   build:
+  #     context: ../
+  #     dockerfile: ./docker/Dockerfile.client.yaml
+  #   ports:
+  #     - "5173:5173"
+  #   depends_on:
+  #     - backend
+  #   volumes:
+  #     - ../frontend:/app
+  #     - /app/node_modules
