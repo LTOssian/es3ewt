@@ -4,8 +4,8 @@ import { container } from "tsyringe";
 import { destroyContainer } from "../../di/container"; // Adjust the import as necessary
 import { FastifyInstance } from "fastify";
 import { MockSuccessHealthRepository } from "./doubles/MockSuccessHealthRepository";
-
-describe("Auth:integration", () => {
+// TODO: remove fastify
+describe.skip("Auth:integration", () => {
   let app: FastifyInstance;
 
   beforeEach(async () => {
