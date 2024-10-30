@@ -23,3 +23,8 @@ migrate-down:
 
 migrate-create:
 	npx knex migrate:make "$(name)" --knexfile $(KNOXFILE_PATH)
+	
+seed:
+	npx knex seed:run --knexfile $(KNOXFILE_PATH)
+
+setup: migrate-up seed
