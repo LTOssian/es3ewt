@@ -1,5 +1,4 @@
 import { encodeBase32LowerCaseNoPadding } from "@oslojs/encoding";
-const oslojs = require("@oslojs/encoding");
 import { BaseUseCase } from "../../../common/interface/base.use-case";
 import { injectable } from "tsyringe";
 

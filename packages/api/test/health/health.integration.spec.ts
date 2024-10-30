@@ -1,10 +1,11 @@
-import { buildApp } from "../..";
+import { describe, it, beforeEach, afterEach, expect, vi } from "vitest";
+import { buildApp } from "../.."; // Adjust the import as necessary
 import { container } from "tsyringe";
-import { destroyContainer, initializeContainer } from "../../di/container";
+import { destroyContainer } from "../../di/container"; // Adjust the import as necessary
 import { FastifyInstance } from "fastify";
 import { MockSuccessHealthRepository } from "./doubles/MockSuccessHealthRepository";
 
-describe("Health:integration", () => {
+describe("Auth:integration", () => {
   let app: FastifyInstance;
 
   beforeEach(async () => {
