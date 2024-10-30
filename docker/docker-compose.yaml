@@ -1,39 +1,44 @@
+# TODO: Add variables and .env
 services:
-  EntreS3etWeTransfer-db:
+  es3ewt-db:
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_USER: EntreS3etWeTransfer_user
-      POSTGRES_PASSWORD: EntreS3etWeTransfer_hetic
-      POSTGRES_DB: EntreS3etWeTransfer
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
-      - ./EntreS3etWeTransfer-db:/var/lib/postgresql/data
+      - ./es3ewt-db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
-  EntreS3etWeTransfer-minio:
+  es3ewt-minio:
     image: minio/minio:latest
     ports:
       - "9000:9000"
       - "9001:9001"
     environment:
-      MINIO_ROOT_USER: minioadmin
-      MINIO_ROOT_PASSWORD: minioadmin
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     command: server /data --console-address ":9001"
     volumes:
       - "./minio-data:/var/lib/minio/data"
 
-  api:
+  es3ewt-api:
     build:
       context: ../
       dockerfile: ./docker/Dockerfile.api.yaml
     ports:
       - "8080:8080"
     depends_on:
-      - EntreS3etWeTransfer-db
-      - EntreS3etWeTransfer-minio
+      - es3ewt-db
+      - es3ewt-minio
     environment:
-      CONNECTION_STRING: "postgresql://EntreS3etWeTransfer_user:EntreS3etWeTransfer_hetic@EntreS3etWeTransfer-db:5432/EntreS3etWeTransfer"
+      CONNECTION_STRING: ${CONNECTION_STRING}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PORT: 5432
       JWT_SECRET: "superSecret"
       JWT_EXPIRATION: "1h"
     volumes:

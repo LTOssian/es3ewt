@@ -8,8 +8,8 @@ const config: { [key: string]: Knex.Config } = {
     client: "postgresql",
     connection: {
       host: "0.0.0.0",
-      user: process.env.POSTGRES_USER, // Change if different
-      password: process.env.POSTGRES_PASSWORD, // Change if different
+      user: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
       database: process.env.POSTGRES_DB,
       port: Number(process.env.POSTGRES_PORT),
     },

@@ -3,4 +3,5 @@ node_modules
 *.idea
 .DS_Store
 .env
+es3ewt-db
 EntreS3etWeTransfer-db
