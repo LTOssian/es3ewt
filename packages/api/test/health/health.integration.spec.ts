@@ -1,23 +1,22 @@
 import { describe, it, beforeEach, afterEach, expect, vi } from "vitest";
-import { buildApp } from "../.."; // Adjust the import as necessary
+import request from "supertest";
+import { buildApp } from "../..";
 import { container } from "tsyringe";
-import { destroyContainer } from "../../di/container"; // Adjust the import as necessary
-import { FastifyInstance } from "fastify";
+import { destroyContainer } from "../../di/container";
+import { Express } from "express";
 import { MockSuccessHealthRepository } from "./doubles/MockSuccessHealthRepository";
-// TODO: remove fastify
-describe.skip("Auth:integration", () => {
-  let app: FastifyInstance;
 
-  beforeEach(async () => {
-    app = buildApp().getFastify();
+describe("Health:integration", () => {
+  let app: Express;
+
+  beforeEach(() => {
+    app = buildApp().getExpress();
     container.register("HealthRepository", {
       useClass: MockSuccessHealthRepository,
     });
-    await app.ready();
   });
 
-  afterEach(async () => {
-    await app.close();
+  afterEach(() => {
     destroyContainer();
   });
 
@@ -26,15 +25,10 @@ describe.skip("Auth:integration", () => {
       ping: "",
     };
 
-    const response = await app.inject({
-      method: "GET",
-      url: "/health",
-      query: pingParams,
-    });
-    const responseJson = response.json();
+    const response = await request(app).get("/health").query(pingParams);
 
     expect(response.statusCode).toBe(400);
-    expect(responseJson.error).toEqual("Validation Error");
+    expect(response.body.error).toEqual("Validation Error");
   });
 
   it("should return pong with ping value", async () => {
@@ -45,14 +39,9 @@ describe.skip("Auth:integration", () => {
       pong: pingParams.ping,
     };
 
-    const response = await app.inject({
-      method: "GET",
-      url: "/health",
-      query: pingParams,
-    });
-    const responseJson = response.json();
+    const response = await request(app).get("/health").query(pingParams);
 
     expect(response.statusCode).toBe(200);
-    expect(responseJson).toEqual(expected);
+    expect(response.body).toEqual(expected);
   });
 });
