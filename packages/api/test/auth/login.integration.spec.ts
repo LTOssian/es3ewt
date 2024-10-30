@@ -32,7 +32,7 @@ describe("Login:integration", () => {
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("message", "Login successful");
     // TODO: handle jwt token
-    // expect(response.body).toHaveProperty("token");
+    expect(response.body).toHaveProperty("token");
   });
 
   it("should return 404 and a UserNotFoundError message when username is not found", async () => {

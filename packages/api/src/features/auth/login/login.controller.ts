@@ -23,7 +23,15 @@ export class LoginController extends BaseController<{
 
       const token = await useCase.handle(validCredentials);
 
-      reply.status(200).send({ message: "Login successful", token });
+      reply
+        .cookie("token", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "strict",
+          maxAge: 3600000,
+        })
+        .status(200)
+        .send({ message: "Login successful", token });
     } catch (error) {
       next(error);
     }

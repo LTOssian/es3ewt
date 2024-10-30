@@ -28,6 +28,7 @@ export class App {
       expressjwt({
         secret: process.env.JWT_SECRET!,
         algorithms: ["HS256"],
+        getToken: (req) => req.cookies.token,
       }).unless({ path: ["/health", "/auth/login", "/auth/register"] }),
     );
 
