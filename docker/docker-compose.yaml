@@ -46,3 +46,18 @@ services:
     volumes:
       - ../packages/api:/app/packages/api
       - ../packages/core:/app/packages/core
+   volumes:
+      - ../packages/api:/app/packages/api
+      - ../packages/core:/app/packages/core
+
+  es3ewt-client:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile.client.yaml
+    ports:
+      - "5173:5173"
+    depends_on:
+      - es3ewt-api
+    volumes:
+      - ../packages/client:/app/packages/client
+      - ../packages/core:/app/packages/core

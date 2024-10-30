@@ -1,0 +1,18 @@
+FROM node:23-alpine3.19
+
+WORKDIR /app
+
+COPY package*.json ./
+COPY packages/client/package*.json packages/api/
+COPY packages/core/package*.json packages/core/
+
+ENV HUSKY=0
+
+RUN npm install --legacy-peer-deps
+
+COPY packages/client packages/client
+COPY packages/core packages/core
+
+EXPOSE 5173
+
+CMD ["npx", "vite"]
