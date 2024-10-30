@@ -1,12 +1,11 @@
-# TODO: Add variables and .env
 services:
   es3ewt-db:
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: postgres 
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: entre_s3_et_wetransfer
     volumes:
       - ./es3ewt-db:/var/lib/postgresql/data
     ports:
@@ -18,8 +17,8 @@ services:
       - "9000:9000"
       - "9001:9001"
     environment:
-      MINIO_ROOT_USER: ${MINIO_ROOT_USER}
-      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
     command: server /data --console-address ":9001"
     volumes:
       - "./minio-data:/var/lib/minio/data"
@@ -34,11 +33,13 @@ services:
       - es3ewt-db
       - es3ewt-minio
     environment:
-      CONNECTION_STRING: ${CONNECTION_STRING}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      CONNECTION_STRING: postgresql://postgres:postgres@es3ewt-db:5432/es3ewt
+      POSTGRES_USER: postgres 
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: entre_s3_et_wetransfer
+      POSTGRES_HOST: es3ewt-db
       POSTGRES_PORT: 5432
+      PORT: 8080
       JWT_SECRET: "superSecret"
       JWT_EXPIRATION: "1h"
     volumes:

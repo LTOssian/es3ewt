@@ -13,7 +13,9 @@ config();
 
 export class App {
   private readonly _app: express.Express;
-  private readonly _app_port: number = parseInt(process.env.PORT || "8080");
+  private readonly _app_port: number = parseInt(
+    process.env.NODE_END !== "test" ? process.env.PORT! : "3000",
+  );
 
   constructor(appInit: { routes: Array<any> }) {
     this._app = express();

@@ -1,7 +1,6 @@
 import { container, injectable } from "tsyringe";
 import { BaseController } from "../../../common/interface/base.controller";
 import { User } from "../auth.model";
-import { FastifyRequest, FastifyReply } from "fastify";
 import {
   authRequestSchema,
   TLoginResponse,
