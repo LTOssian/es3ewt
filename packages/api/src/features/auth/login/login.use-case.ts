@@ -16,10 +16,7 @@ export class LoginUseCase implements BaseUseCase<TAuthRequest, string> {
     @inject("AuthRepository") private readonly _authRepository: IAuthRepository,
   ) {}
 
-  public async handle(credentials: {
-    username: string;
-    password: string;
-  }): Promise<string> {
+  public async handle(credentials: TAuthRequest): Promise<string> {
     const user = await this._authRepository.findByUsername(
       credentials.username,
     );

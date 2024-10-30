@@ -1,16 +1,27 @@
-import { injectable } from "tsyringe";
+import { container, injectable } from "tsyringe";
 import { BaseController } from "../../../common/interface/base.controller";
 import { FastifyRequest, FastifyReply } from "fastify";
+import { authRequestSchema, TAuthRequest } from "../../../../../core/auth/auth";
+import { RegisterUseCase } from "./register.use-case";
 
 @injectable()
 export class RegisterController extends BaseController<
-  { Body: { username: string; password: string } },
+  { Body: TAuthRequest },
   void
 > {
-  handle(
-    request: FastifyRequest<{ Body: { username: string; password: string } }>,
+  async handle(
+    request: FastifyRequest<{ Body: TAuthRequest }>,
     reply: FastifyReply,
   ): Promise<FastifyReply> {
-    throw new Error("Method not implemented.");
+    try {
+      const validCredentials = authRequestSchema.parse(request.body);
+      const useCase = container.resolve(RegisterUseCase);
+
+      await useCase.handle(validCredentials);
+
+      return reply.code(201).send();
+    } catch (error) {
+      throw error;
+    }
   }
 }

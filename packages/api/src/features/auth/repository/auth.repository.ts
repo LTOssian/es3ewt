@@ -12,7 +12,7 @@ export class AuthRepository implements IAuthRepository {
     return user || null;
   }
 
-  async createUser(credentials: {
+  async saveUser(credentials: {
     username: string;
     password: string;
   }): Promise<void> {
