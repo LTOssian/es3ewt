@@ -5,7 +5,7 @@ services:
     environment:
       POSTGRES_USER: postgres 
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: entre_s3_et_wetransfer
+      POSTGRES_DB: es3ewt
     volumes:
       - ./es3ewt-db:/var/lib/postgresql/data
     ports:
@@ -36,7 +36,7 @@ services:
       CONNECTION_STRING: postgresql://postgres:postgres@es3ewt-db:5432/es3ewt
       POSTGRES_USER: postgres 
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: entre_s3_et_wetransfer
+      POSTGRES_DB: es3ewt
       POSTGRES_HOST: es3ewt-db
       POSTGRES_PORT: 5432
       PORT: 8080

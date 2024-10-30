@@ -35,12 +35,12 @@ dockerUp:
 
 	@echo "Creating docker .env if missing..."
 	@touch docker/.env
-	@grep -q '^POSTGRES_DB=' docker/.env || echo "POSTGRES_DB=entre_s3_et_wetransfer" >> docker/.env
+	@grep -q '^POSTGRES_DB=' docker/.env || echo "POSTGRES_DB=es3ewt" >> docker/.env
 	@grep -q '^POSTGRES_USER=' docker/.env || echo "POSTGRES_USER=postgres" >> docker/.env
 	@grep -q '^POSTGRES_PASSWORD=' docker/.env || echo "POSTGRES_PASSWORD=postgres" >> docker/.env
 	@grep -q '^MINIO_ROOT_USER=' docker/.env || echo "MINIO_ROOT_USER=minioadmin" >> docker/.env
 	@grep -q '^MINIO_ROOT_PASSWORD=' docker/.env || echo "MINIO_ROOT_PASSWORD=minioadmin" >> docker/.env
-	@grep -q '^CONNECTION_STRING=' docker/.env || echo "CONNECTION_STRING=postgresql://postgres:postgres@es3ewt-db:5432/entre_s3_et_wetransfer" >> docker/.env
+	@grep -q '^CONNECTION_STRING=' docker/.env || echo "CONNECTION_STRING=postgresql://postgres:postgres@es3ewt-db:5432/es3ewt" >> docker/.env
 
 	@echo "Starting containers..."
 	cd docker && docker-compose -p es3ewt up
