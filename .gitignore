@@ -4,4 +4,5 @@ node_modules
 .DS_Store
 .env
 es3ewt-db
+minio-data
 EntreS3etWeTransfer-db
