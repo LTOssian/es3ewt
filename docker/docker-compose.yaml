@@ -1,17 +1,17 @@
 services:
-  filecase-db:
+  EntreS3etWeTransfer-db:
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_USER: filecase_user
-      POSTGRES_PASSWORD: filecase_hetic
-      POSTGRES_DB: filecase
+      POSTGRES_USER: EntreS3etWeTransfer_user
+      POSTGRES_PASSWORD: EntreS3etWeTransfer_hetic
+      POSTGRES_DB: EntreS3etWeTransfer
     volumes:
-      - ./filecase-db:/var/lib/postgresql/data
+      - ./EntreS3etWeTransfer-db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
-  filecase-minio:
+  EntreS3etWeTransfer-minio:
     image: minio/minio:latest
     ports:
       - "9000:9000"
@@ -30,10 +30,10 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - filecase-db
-      - filecase-minio
+      - EntreS3etWeTransfer-db
+      - EntreS3etWeTransfer-minio
     environment:
-      CONNECTION_STRING: "postgresql://filecase_user:filecase_hetic@filecase-db:5432/filecase"
+      CONNECTION_STRING: "postgresql://EntreS3etWeTransfer_user:EntreS3etWeTransfer_hetic@EntreS3etWeTransfer-db:5432/EntreS3etWeTransfer"
       JWT_SECRET: "superSecret"
       JWT_EXPIRATION: "1h"
     volumes:
