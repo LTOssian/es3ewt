@@ -28,6 +28,7 @@ export class StoreInBucketRepository implements IStoreFileRepository {
       user_id: credentials.userId,
       name: credentials.file.filename,
       path: `${bucketPath}/${credentials.file.filename}`,
+      size: credentials.file.size,
     });
   }
 }
