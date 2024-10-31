@@ -1,5 +1,10 @@
-import { TFileResponse } from "../../../../../../core/file/file";
+import {
+  TFileResponse,
+  TGetFileByUserIdRequest,
+} from "../../../../../../core/file/file";
 
-export interface IFileRepository {
-  getAllFilesByUserId(userId: number): Promise<TFileResponse[]>;
+export interface IGetAllFilesByUserIdRepository {
+  getAllFilesByUserId(
+    credentials: TGetFileByUserIdRequest,
+  ): Promise<TFileResponse[]>;
 }

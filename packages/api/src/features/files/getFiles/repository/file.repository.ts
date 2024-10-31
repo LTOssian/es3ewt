@@ -1,13 +1,21 @@
 import { inject, injectable } from "tsyringe";
-import { IFileRepository } from "./file.repository.interface";
+import { IGetAllFilesByUserIdRepository } from "./file.repository.interface";
 import { Knex } from "knex";
-import { TFileResponse } from "../../../../../../core/file/file";
+import {
+  TFileResponse,
+  TGetFileByUserIdRequest,
+} from "../../../../../../core/file/file";
 
 @injectable()
-export class FileRepository implements IFileRepository {
+export class GetAllFilesByUserIdRepository
+  implements IGetAllFilesByUserIdRepository
+{
   constructor(@inject("Database") private readonly db: Knex) {}
 
-  getAllFilesByUserId(userId: number): Promise<TFileResponse[]> {
+  getAllFilesByUserId(
+    credentials: TGetFileByUserIdRequest,
+  ): Promise<TFileResponse[]> {
+    const { userId } = credentials;
     return this.db("file").where("user_id", userId);
   }
 }

@@ -5,7 +5,7 @@ export const getFileByIdRequestSchema = z.object({
 });
 
 export const getFileByUserIdRequestSchema = z.object({
-  userId: z.number(),
+  userId: z.string().uuid(),
 });
 
 export const fileResponseSchema = z.object({
@@ -18,5 +18,8 @@ export const fileResponseSchema = z.object({
 });
 
 export type TGetFileByIdRequest = z.infer<typeof getFileByIdRequestSchema>;
+export type TGetFileByUserIdRequest = z.infer<
+  typeof getFileByUserIdRequestSchema
+>;
 // export type TGetFileByIdResponse = z.infer<typeof getFileByIdResponseSchema>;
 export type TFileResponse = z.infer<typeof fileResponseSchema>;

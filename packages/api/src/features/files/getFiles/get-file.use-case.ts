@@ -1,23 +1,25 @@
 import { inject, injectable } from "tsyringe";
 import { BaseUseCase } from "../../../common/interface/base.use-case";
-import { IFileRepository } from "./repository/file.repository.interface";
-import { TFileResponse } from "../../../../../core/file/file";
+import { IGetAllFilesByUserIdRepository } from "./repository/file.repository.interface";
+import {
+  TFileResponse,
+  TGetFileByUserIdRequest,
+} from "../../../../../core/file/file";
 
 @injectable()
 export class GetFileUseCase
-  implements BaseUseCase<{ userId: number }, TFileResponse[]>
+  implements BaseUseCase<TGetFileByUserIdRequest, TFileResponse[]>
 {
   constructor(
-    @inject("FileRepository")
-    private readonly _fileRepository: IFileRepository,
+    @inject("GetAllFilesByUserIdRepository")
+    private readonly _fileRepository: IGetAllFilesByUserIdRepository,
   ) {}
 
-  public async handle(credentials: {
-    userId: number;
-  }): Promise<TFileResponse[]> {
-    const { userId } = credentials;
-
-    const allFiles = await this._fileRepository.getAllFilesByUserId(userId);
+  public async handle(
+    credentials: TGetFileByUserIdRequest,
+  ): Promise<TFileResponse[]> {
+    const allFiles =
+      await this._fileRepository.getAllFilesByUserId(credentials);
 
     return allFiles;
   }
