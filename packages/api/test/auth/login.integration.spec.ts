@@ -1,11 +1,9 @@
 import "reflect-metadata";
-import { describe, it, beforeEach, afterEach, expect, vi } from "vitest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
 import { buildApp } from "../..";
 import request from "supertest";
 import { destroyContainer } from "../../di/container";
 import { Application } from "express";
-import { RegisterUseCase } from "../../src/features/auth/register/register.use-case";
-import { container } from "tsyringe";
 
 describe("Login:integration", () => {
   let app: Application;
@@ -25,14 +23,15 @@ describe("Login:integration", () => {
       password: "abcdefg",
     };
 
-    // await container.resolve(RegisterUseCase).handle(loginParams);
-
     const response = await request(app).post("/auth/login").send(loginParams);
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty("message", "Login successful");
-    // TODO: handle jwt token
     expect(response.body).toHaveProperty("token");
+
+    const cookies = response.headers["set-cookie"];
+    expect(cookies).toBeDefined();
+    expect(cookies[0]).toMatch(/token=/); // Assumes the token is stored in a cookie named 'token'
   });
 
   it("should return 404 and a UserNotFoundError message when username is not found", async () => {

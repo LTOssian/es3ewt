@@ -1,4 +1,3 @@
-import { FastifyInstance, FastifyPluginOptions } from "fastify";
 import { GetHealthRoute } from "./getHealth/get-health.route";
 import { Router } from "express";
 
