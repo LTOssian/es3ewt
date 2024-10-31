@@ -42,19 +42,7 @@ services:
       PORT: 8080
       JWT_SECRET: "superSecret"
       JWT_EXPIRATION: "1h"
+      MINIO_ENDPOINT: es3ewt-minio
     volumes:
       - ../packages/api:/app/packages/api
       - ../packages/core:/app/packages/core
-      - /app/packages/api/node_modules
-
-  #  client:
-  #   build:
-  #     context: ../
-  #     dockerfile: ./docker/Dockerfile.client.yaml
-  #   ports:
-  #     - "5173:5173"
-  #   depends_on:
-  #     - backend
-  #   volumes:
-  #     - ../frontend:/app
-  #     - /app/node_modules
