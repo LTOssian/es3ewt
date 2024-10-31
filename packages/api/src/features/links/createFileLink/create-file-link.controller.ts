@@ -1,15 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import {
-  fileIdRequestSchema,
-  TGetFileByIdRequest,
-} from "../../../../../core/file/file";
 import { BaseController } from "../../../common/interface/base.controller";
+import { fileIdRequestSchema } from "../../../../../core/file/file";
 import { container } from "tsyringe";
-import { GetFileByIdUseCase } from "./get-file-by-id.use-case";
+import { CreateFileLinkUseCase } from "./create-file-link.use-case";
 
-export class GetFileByIdController
-  implements BaseController<TGetFileByIdRequest>
-{
+export class CreateFileLinkController implements BaseController<{}> {
   async handle(
     request: Request,
     response: Response,
@@ -19,10 +14,10 @@ export class GetFileByIdController
       const { fileId } = fileIdRequestSchema.parse(request.params);
       const userId = request?.auth?.userId || "";
 
-      const useCase = container.resolve(GetFileByIdUseCase);
-      const file = await useCase.handle({ userId, fileId });
+      const useCase = container.resolve(CreateFileLinkUseCase);
 
-      response.status(200).send(file);
+      const linkPath = await useCase.handle({ fileId, userId });
+      response.status(201).send(linkPath);
     } catch (error) {
       next(error);
     }
