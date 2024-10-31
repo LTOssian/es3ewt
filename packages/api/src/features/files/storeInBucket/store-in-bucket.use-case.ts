@@ -30,7 +30,7 @@ export class StoreInBucketUseCase
         message: "Could not determine file type",
       });
 
-    const fileKey = await this._storeRepository.store({
+    await this._storeRepository.store({
       userId: credentials.userId,
       file: {
         buffer: credentials.file,
@@ -46,6 +46,7 @@ export class StoreInBucketUseCase
       },
     });
 
-    return `${credentials.bucketPath}/${credentials.userId}-files`;
+    // TODO: Full file path
+    return `${credentials.bucketPath}`;
   }
 }
