@@ -6,31 +6,31 @@ Bienvenue sur EntreS3etWeTransfer, un projet réalisé à HETIC.
 
 - Dockerisation de l'application. ✅
 - Création d'un Makefile et d'une base de données d'initialisation pour le conteneur Docker de la base de données. ✅
-- Capacité à créer un compte et à se connecter à la webapp.
-- Possibilité de téléverser des fichiers. (C)
-- Capacité à consulter les fichiers. (R)
-- Accès à la gestion des métadonnées associées. (U)
-- Possibilité de supprimer des fichiers. (D)
-- Mise en place d'un quota maximal de téléversement de 2 Go par utilisateur.
-- Capacité à générer un lien de partage temporaire et public pour un fichier ou un groupe de fichiers.
+- Capacité à créer un compte et à se connecter à la webapp. ✅
+- Possibilité de téléverser des fichiers. (C) ✅
+- Capacité à consulter les fichiers. (R) ✅
+- Accès à la gestion des métadonnées associées. (U) ✅
+- Possibilité de supprimer des fichiers. (D) ✅
+- Mise en place d'un quota maximal de téléversement de 2 Go par utilisateur. ✅
+- Capacité à générer un lien de partage temporaire et public pour un fichier ou un groupe de fichiers. ✅
 - Création d'un frontend pour utiliser le service.
 - Rédaction de la documentation. ✅
 
-## Technologies :
+## Technologies
 
-### Global :
+### Global
 
 ![global](https://skillicons.dev/icons?i=docker,git,typescript)
 
-### [Client](./client/README.md) :
+### [Client](./client/README.md)
 
 ![frontend](https://skillicons.dev/icons?i=vite,react)
 
-### [API](./api/README.md) :
+### [API](./api/README.md)
 
 ![backend](https://skillicons.dev/icons?i=nodejs,express)
 
-### Base de données :
+### Base de données
 
 ![database](https://skillicons.dev/icons?i=postgres,aws)
 
@@ -53,8 +53,8 @@ make start
 ```
 
 5. **Utiliser EntreS3etWeTransfer !**
-   - Lien du Backend : http://localhost:3000/
-   - Lien du Frontend : http://localhost:5173/
+   - Lien du Backend : <http://localhost:3000/>
+   - Lien du Frontend : <http://localhost:5173/>
 
 ## Crédits
 
