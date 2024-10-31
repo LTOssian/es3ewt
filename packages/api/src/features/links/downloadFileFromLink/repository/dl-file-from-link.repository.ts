@@ -28,20 +28,21 @@ export class DownloadFileFromLinkRepository
 
     if (!file) throw new FileNotFoundError();
     const [bucket, _] = file.path.split("/");
-    const fileStream = this._fileStorage.getObject(bucket, file.name, {});
+    const { metaData } = await this._fileStorage.statObject(bucket, file.name);
+    const fileStream = await this._fileStorage.getObject(bucket, file.name, {});
 
     // Set headers for file download (optional)
     response.setHeader(
       "Content-Disposition",
       `attachment; filename="${file.name}"`,
     );
-    response.setHeader("Content-Type", "application/zip");
+    response.setHeader("Content-Type", metaData["content-type"]);
 
-    (await fileStream).pipe(response);
-    (await fileStream).on("end", () => {
+    fileStream.pipe(response);
+    fileStream.on("end", () => {
       console.log(`File download complete`);
     });
-    (await fileStream).on("error", (error) => {
+    fileStream.on("error", (error) => {
       console.error("Error streaming file from MinIO:", error);
       throw error;
     });
