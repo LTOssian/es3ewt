@@ -1,4 +1,3 @@
-import { FastifyInstance, FastifyPluginOptions } from "fastify";
 import { LoginRoute } from "./login/login.route";
 import { RegisterRoute } from "./register/register.route";
 import { Router } from "express";

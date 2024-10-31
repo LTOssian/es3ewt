@@ -1,4 +1,3 @@
-import { FastifyInstance } from "fastify";
 import { container } from "tsyringe";
 import { RegisterController } from "./register.controller";
 import { Router } from "express";
