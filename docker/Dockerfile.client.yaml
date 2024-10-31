@@ -13,6 +13,8 @@ RUN npm install --legacy-peer-deps
 COPY packages/client packages/client
 COPY packages/core packages/core
 
+WORKDIR /app/packages/client
+
 EXPOSE 5173
 
-CMD ["npx", "vite", "--host", "0.0.0.0"]
+CMD ["npm", "run", "dev"]

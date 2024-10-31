@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "if [ \"$HUSKY\" != \"0\" ]; then husky install; fi",
     "lint-staged": "lint-staged",
-    "start:api": "npm run --workspace=packages/api dev"
+    "start:api": "npm run --workspace=packages/api dev",
+    "start:client": "npm run --workspace=packages/client dev"
   },
   "workspaces": [
     "packages/api",
