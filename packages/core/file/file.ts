@@ -4,6 +4,10 @@ export const getFileByIdRequestSchema = z.object({
   fileId: z.string().min(1),
 });
 
+export const getFileByUserIdRequestSchema = z.object({
+  userId: z.number(),
+});
+
 export const fileResponseSchema = z.object({
   id: z.string().min(1),
   path: z.string().min(1),

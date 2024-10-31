@@ -1,11 +1,11 @@
 import { inject, injectable } from "tsyringe";
 import { BaseUseCase } from "../../../common/interface/base.use-case";
 import { IFileRepository } from "./repository/file.repository.interface";
-import { IStoreFileRepository } from "../files.repository.interface";
+import { TFileResponse } from "../../../../../core/file/file";
 
 @injectable()
 export class GetFileUseCase
-  implements BaseUseCase<{ userId: number }, { files: string[] }>
+  implements BaseUseCase<{ userId: number }, TFileResponse[]>
 {
   constructor(
     @inject("FileRepository")
@@ -14,7 +14,7 @@ export class GetFileUseCase
 
   public async handle(credentials: {
     userId: number;
-  }): Promise<{ files: string[] }> {
+  }): Promise<TFileResponse[]> {
     const { userId } = credentials;
 
     const allFiles = await this._fileRepository.getAllFilesByUserId(userId);
