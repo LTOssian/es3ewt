@@ -43,7 +43,10 @@ export async function up(knex: Knex): Promise<void> {
         .notNullable()
         .defaultTo(knex.raw("uuid_generate_v4()"))
         .primary();
-      table.date("creation_date").notNullable();
+      table
+        .date("creation_date")
+        .notNullable()
+        .defaultTo(knex.raw("CURRENT_TIMESTAMP + INTERVAL '1 hour'"));
       table
         .uuid("file_id")
         .notNullable()
