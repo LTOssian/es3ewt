@@ -30,7 +30,7 @@ export async function up(knex: Knex): Promise<void> {
         .references("id")
         .inTable("user")
         .onDelete("CASCADE");
-      table.text("name").notNullable();
+      table.text("name").notNullable().unique();
     });
   }
 
