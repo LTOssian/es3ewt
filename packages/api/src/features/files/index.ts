@@ -12,9 +12,9 @@ export default class FileRoute {
     const fileRouter = Router();
     GetFileByIdRoute.setRoute(fileRouter);
     StoreInBucketRoute.setRoute(fileRouter);
-    router.use(this.prefix_route, fileRouter);
     GetFileRoute.setRoute(fileRouter);
     EditMetaDataRoute.setRoute(fileRouter);
     DeleteFileByIdRoute.setRoute(fileRouter);
+    router.use(this.prefix_route, fileRouter);
   }
 }

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import {
-  getFileByIdRequestSchema,
+  fileIdRequestSchema,
   TGetFileByIdRequest,
 } from "../../../../../core/file/file";
 import { BaseController } from "../../../common/interface/base.controller";
@@ -16,7 +16,7 @@ export class GetFileByIdController
     next: NextFunction,
   ): Promise<void> {
     try {
-      const { fileId } = getFileByIdRequestSchema.parse(request.params);
+      const { fileId } = fileIdRequestSchema.parse(request.params);
       const userId = request?.auth?.userId || "";
 
       const useCase = container.resolve(GetFileByIdUseCase);

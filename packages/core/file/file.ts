@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const getFileByIdRequestSchema = z.object({
+export const fileIdRequestSchema = z.object({
   fileId: z.string().uuid(),
 });
 
@@ -26,7 +26,7 @@ export const deleteFileSchema = z.object({
   id: z.string().uuid(),
 });
 
-export type TGetFileByIdRequest = z.infer<typeof getFileByIdRequestSchema>;
+export type TGetFileByIdRequest = z.infer<typeof fileIdRequestSchema>;
 export type TGetFileByUserIdRequest = z.infer<
   typeof getFileByUserIdRequestSchema
 >;
