@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { StoreInBucketRoute } from "./storeInBucket/store-in-bucket.route";
 import { GetFileRoute } from "./getFiles/get-file.route";
+import { GetFileByIdRoute } from "./getFileById/get-file-by-id.route";
 
 export default class FileRoute {
   public prefix_route = "/files";
@@ -8,6 +9,7 @@ export default class FileRoute {
   setRoutes(router: Router) {
     const fileRouter = Router();
     StoreInBucketRoute.setRoute(fileRouter);
+    GetFileByIdRoute.setRoute(fileRouter);
     router.use(this.prefix_route, fileRouter);
     GetFileRoute.setRoute(fileRouter);
   }
