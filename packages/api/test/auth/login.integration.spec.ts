@@ -1,11 +1,9 @@
 import "reflect-metadata";
-import { describe, it, beforeEach, afterEach, expect, vi } from "vitest";
+import { describe, it, beforeEach, afterEach, expect } from "vitest";
 import { buildApp } from "../..";
 import request from "supertest";
 import { destroyContainer } from "../../di/container";
 import { Application } from "express";
-import { RegisterUseCase } from "../../src/features/auth/register/register.use-case";
-import { container } from "tsyringe";
 
 describe("Login:integration", () => {
   let app: Application;
@@ -24,8 +22,6 @@ describe("Login:integration", () => {
       username: "Louisan",
       password: "abcdefg",
     };
-
-    // await container.resolve(RegisterUseCase).handle(loginParams);
 
     const response = await request(app).post("/auth/login").send(loginParams);
 
