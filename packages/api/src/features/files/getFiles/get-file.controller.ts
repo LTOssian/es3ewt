@@ -2,9 +2,7 @@ import { container, injectable } from "tsyringe";
 import { BaseController } from "../../../common/interface/base.controller";
 import { NextFunction, Request, Response } from "express";
 import {
-  getFileByUserIdRequestSchema,
   TFileResponse,
-  TGetFileByIdRequest,
   TGetFileByUserIdRequest,
 } from "../../../../../core/file/file";
 import { GetFileUseCase } from "./get-file.use-case";

@@ -5,7 +5,7 @@ import { authorizationMiddleware } from "../../../common/presentation/authorizat
 export class GetFileRoute {
   public static setRoute(router: any) {
     router.get(
-      "/getAllFilesByUserId",
+      "/me/all/",
       authorizationMiddleware,
       container.resolve(GetFileController).handle,
     );
