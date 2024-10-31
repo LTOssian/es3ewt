@@ -17,9 +17,21 @@ export const fileResponseSchema = z.object({
   lastUpdate: z.date(),
 });
 
+export const updateFileSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string().min(1).optional(),
+});
+
+export const deleteFileSchema = z.object({
+  id: z.string().uuid(),
+});
+
 export type TGetFileByIdRequest = z.infer<typeof getFileByIdRequestSchema>;
 export type TGetFileByUserIdRequest = z.infer<
   typeof getFileByUserIdRequestSchema
 >;
 // export type TGetFileByIdResponse = z.infer<typeof getFileByIdResponseSchema>;
 export type TFileResponse = z.infer<typeof fileResponseSchema>;
+
+export type TUpdateFile = z.infer<typeof updateFileSchema>;
+export type TDeleteFile = z.infer<typeof deleteFileSchema>;
