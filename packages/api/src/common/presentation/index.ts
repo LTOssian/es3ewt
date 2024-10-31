@@ -1,12 +1,13 @@
-import express, { ErrorRequestHandler, Request, Response } from "express";
-import { initializeContainer } from "../../../di/container";
-import { ZodError } from "zod";
-import { expressjwt } from "express-jwt";
-import { config } from "dotenv";
 import {
   BadPasswordError,
   UserNotFoundError,
 } from "../../../../core/auth/auth.error";
+import { config } from "dotenv";
+import { expressjwt } from "express-jwt";
+import { initializeContainer } from "../../../di/container";
+import { ZodError } from "zod";
+import cookieParser from "cookie-parser";
+import express, { ErrorRequestHandler, Request, Response } from "express";
 import morgan from "morgan";
 
 config();
@@ -22,6 +23,7 @@ export class App {
 
     this._app.use(express.json());
     this._app.use(express.urlencoded({ extended: true }));
+    this._app.use(cookieParser());
     this._app.use(morgan("dev"));
 
     this._app.use(
@@ -62,6 +64,10 @@ export class App {
             message: err.message,
           })),
         });
+      } else if (error.name === "UnauthorizedError") {
+        response
+          .status(401)
+          .send({ ...error, message: "Invalid token", error: Error.name });
       } else if (error.statusCode) {
         response.status(error.statusCode).send({
           error: error.name,
