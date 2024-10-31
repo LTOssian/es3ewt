@@ -8,8 +8,8 @@ export default class FileRoute {
 
   setRoutes(router: Router) {
     const fileRouter = Router();
-    StoreInBucketRoute.setRoute(fileRouter);
     GetFileByIdRoute.setRoute(fileRouter);
+    StoreInBucketRoute.setRoute(fileRouter);
     router.use(this.prefix_route, fileRouter);
     GetFileRoute.setRoute(fileRouter);
   }

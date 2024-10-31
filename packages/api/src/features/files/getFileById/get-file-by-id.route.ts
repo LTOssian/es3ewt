@@ -5,7 +5,7 @@ import { GetFileByIdController } from "./get-file-by-id.controller";
 
 export class GetFileByIdRoute {
   public static setRoute(router: Router) {
-    router.post(
+    router.get(
       "/:fileId",
       authorizationMiddleware,
       container.resolve(GetFileByIdController).handle,

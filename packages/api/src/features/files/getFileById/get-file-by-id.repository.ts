@@ -12,14 +12,12 @@ export class GetFileByIdRepository implements IGetFileByIdRepository {
     @inject("Database") private readonly _db: Knex,
   ) {}
   async get(credentials: { fileId: string; userId: string }): Promise<any> {
-    const file = await this._db<Omit<TFileResponse, "size" | "lastUpdate">>(
+    const [file] = await this._db<Omit<TFileResponse, "size" | "lastUpdate">>(
       "file",
-    )
-      .where({
-        id: credentials.fileId,
-        user_id: credentials.userId,
-      })
-      .first();
+    ).where({
+      id: credentials.fileId,
+      user_id: credentials.userId,
+    });
 
     if (!file) {
       throw new FileNotFoundError();

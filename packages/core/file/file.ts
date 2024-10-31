@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const getFileByIdRequestSchema = z.object({
-  fileId: z.string().min(1),
+  fileId: z.string().uuid(),
 });
 
 export const getFileByUserIdRequestSchema = z.object({
@@ -9,7 +9,7 @@ export const getFileByUserIdRequestSchema = z.object({
 });
 
 export const fileResponseSchema = z.object({
-  id: z.string().min(1),
+  id: z.string().uuid(),
   path: z.string().min(1),
   name: z.string().min(1),
   user_id: z.string().min(1),
