@@ -21,7 +21,6 @@ export class StoreInBucketController implements BaseController<{}> {
       }
 
       const useCase = container.resolve(StoreInBucketUseCase);
-      // TODO: result is the file path, use it
       const result = await useCase.handle({
         file: file.buffer,
         filename: file.originalname,
@@ -29,9 +28,7 @@ export class StoreInBucketController implements BaseController<{}> {
         bucketPath,
       });
 
-      response
-        .status(200)
-        .send({ message: "File stored successfully", result });
+      response.status(200).send({ message: "File stored successfully" });
     } catch (error) {
       next(error);
     }
