@@ -46,9 +46,6 @@ services:
     volumes:
       - ../packages/api:/app/packages/api
       - ../packages/core:/app/packages/core
-   volumes:
-      - ../packages/api:/app/packages/api
-      - ../packages/core:/app/packages/core
 
   es3ewt-client:
     build:
