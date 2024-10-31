@@ -1,29 +1,28 @@
-import { injectable } from "tsyringe";
+import { container, injectable } from "tsyringe";
 import {
   TGetUserLimitRequest,
   TGetUserLimitResponse,
 } from "../../../../../core/user/user";
 import { BaseUseCase } from "../../../common/interface/base.use-case";
+import { GetFileUseCase } from "../../files/getFiles/get-file.use-case";
 
 @injectable()
 export class GetUserLimitUseCase
   implements BaseUseCase<TGetUserLimitRequest, TGetUserLimitResponse>
 {
-  constructor() // @inject("HealthRepository")
-  // private readonly _healthRepository: IHealthRepository,
-  {}
+  private readonly _getFilesUseCase: GetFileUseCase;
+
+  constructor() {
+    this._getFilesUseCase = container.resolve(GetFileUseCase);
+  }
 
   public async handle(
     credentials: TGetUserLimitRequest,
   ): Promise<TGetUserLimitResponse> {
-    // const isHealthy = await this._healthRepository.getHealth();
-
-    // if (!isHealthy) {
-    //   throw new HealthError({
-    //     details: { attemptedPing: credentials.ping },
-    //   });
-    // }
-
-    return { totalSize: 0 };
+    const totalSize = (await this._getFilesUseCase.handle(credentials)).reduce(
+      (acc, file) => acc + file.size,
+      0,
+    );
+    return { totalSize: totalSize };
   }
 }

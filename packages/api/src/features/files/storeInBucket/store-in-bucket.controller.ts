@@ -23,8 +23,11 @@ export class StoreInBucketController implements BaseController<{}> {
       }
 
       const userLimitUseCase = container.resolve(GetUserLimitUseCase);
-      // if (userLimitUseCase.handle(userId) + file.size <= Math.pow(2, 3)) {
-      if (true) {
+      if (
+        (await userLimitUseCase.handle({ userId: userId })).totalSize +
+          file.size <=
+        2 * Math.pow(1000, 3)
+      ) {
         const useCase = container.resolve(StoreInBucketUseCase);
         const result = await useCase.handle({
           file: file.buffer,

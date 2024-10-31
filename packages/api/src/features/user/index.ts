@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { GetUserLimitRoute } from "./getUserLimit/get-user-limit.route";
 
-export default class userRoute {
+export default class UserRoute {
   public prefix_route = "/user";
 
   setRoutes(router: Router) {
