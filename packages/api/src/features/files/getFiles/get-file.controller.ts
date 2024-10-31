@@ -6,12 +6,13 @@ import {
   TGetFileByUserIdRequest,
 } from "../../../../../core/file/file";
 import { GetFileUseCase } from "./get-file.use-case";
+import { TFileWithShare } from "./repository/file.repository";
 
 @injectable()
 export class GetFileController extends BaseController<TGetFileByUserIdRequest> {
   async handle(
     request: Request<TGetFileByUserIdRequest>,
-    response: Response<TFileResponse[]>,
+    response: Response<TFileWithShare[]>,
     next: NextFunction,
   ): Promise<void> {
     try {

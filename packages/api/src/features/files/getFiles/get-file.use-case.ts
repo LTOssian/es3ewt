@@ -5,6 +5,7 @@ import {
   TFileResponse,
   TGetFileByUserIdRequest,
 } from "../../../../../core/file/file";
+import { TFileWithShare } from "./repository/file.repository";
 
 @injectable()
 export class GetFileUseCase
@@ -17,7 +18,7 @@ export class GetFileUseCase
 
   public async handle(
     credentials: TGetFileByUserIdRequest,
-  ): Promise<TFileResponse[]> {
+  ): Promise<TFileWithShare[]> {
     const allFiles =
       await this._fileRepository.getAllFilesByUserId(credentials);
 
