@@ -46,7 +46,7 @@ export async function authorizedGet(path: string) {
   return await authorizedFetch(path);
 }
 
-export async function authorizedPost<T>(
+export async function authorizedPost(
   path: string,
   body: any,
   options = { stringify: true },
