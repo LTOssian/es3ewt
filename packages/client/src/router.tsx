@@ -2,14 +2,14 @@ import { createBrowserRouter, RouteObject } from "react-router-dom";
 import Welcome from "./components/welcome/welcome";
 import { PrivateRoute } from "./components/private/private";
 import { Dashboard } from "./pages/dashboard/dashboard";
-import { LoginForm } from "./pages/auth/login";
+import { AuthForm } from "./pages/auth/auth";
 // import RegisterForm from "./pages/auth/register";
 
 const routes: RouteObject[] = [
   { path: "/welcome", element: <Welcome /> },
 
-  { path: "/auth/login", element: <LoginForm /> },
-  // { path: "/auth/register", element: <RegisterForm /> },
+  { path: "/auth/login", element: <AuthForm isRegister={false} /> },
+  { path: "/auth/register", element: <AuthForm isRegister={true} /> },
 
   {
     path: "/",
