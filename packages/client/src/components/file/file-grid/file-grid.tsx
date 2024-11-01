@@ -21,7 +21,6 @@ export const FileGrid = (props: FileGridProps) => {
 
   return (
     <div className="file-grid">
-      test
       {data?.map((file) => <FileCard file={file} />)}
     </div>
   );
