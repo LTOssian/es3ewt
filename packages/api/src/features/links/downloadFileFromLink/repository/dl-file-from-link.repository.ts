@@ -22,7 +22,7 @@ export class DownloadFileFromLinkRepository
       .join("file", "link.file_id", "=", "file.id")
       .join("user", "file.user_id", "=", "user.id")
       .select(
-        "user.username as shareBy",
+        "user.username as sharedBy",
         "file.name as name",
         "file.size as size",
       )

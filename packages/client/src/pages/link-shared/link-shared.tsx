@@ -1,17 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useGetData, usePostData } from "../../hooks/use-data"; // Assuming these hooks are set up
-import { TFileWithShare } from "../../../../core/file/file";
 
 export const LinkShared = () => {
-  const { linkId } = useParams<{ linkId: string }>(); // Extract linkId from the route params
-
-  // Fetch file info on render
-  const {
-    data: { data: fileInfo },
-    isError,
-    error,
-    isLoading,
-  } = useGetData<TFileWithShare>(`links/shared/${linkId}`);
+  const { linkId } = useParams<{ linkId: string }>();
+  const { data, isError, error, isLoading } = useGetData<{
+    name: string;
+    size: number;
+    sharedBy: string;
+  }>(`links/shared/${linkId}`, { disabledQueryKey: true });
 
   // Download file hook
   const { mutate: downloadFile, isPending } = usePostData(
@@ -19,23 +15,26 @@ export const LinkShared = () => {
     [],
   );
 
-  // Trigger download when the button is clicked
-  const handleDownload = () => {
-    downloadFile(null, {
-      onSuccess: (data: any) => {
-        // Create a Blob from the data received and download
-        const blob = new Blob([data], { type: data.type });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = fileInfo?.name || "downloaded-file";
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+  const handleDownload = (e: any) => {
+    e.preventDefault();
+    downloadFile(
+      {},
+      {
+        onSuccess: (data: any) => {
+          console.log(data);
+          // const blob = new Blob([data], { type: data.type });
+          // const link = document.createElement("a");
+          // link.href = URL.createObjectURL(blob);
+          // link.download = data.name || "downloaded-file";
+          // document.body.appendChild(link);
+          // link.click();
+          // document.body.removeChild(link);
+        },
+        onError: (error) => {
+          console.error("Download failed:", error);
+        },
       },
-      onError: (error) => {
-        console.error("Download failed:", error);
-      },
-    });
+    );
   };
 
   if (isLoading) return <p>Loading file info...</p>;
@@ -44,14 +43,18 @@ export const LinkShared = () => {
   return (
     <div>
       <h1>File Info</h1>
-      {fileInfo ? (
+      {data.data ? (
         <div>
           <p>
-            <strong>Name:</strong> {fileInfo.name}
+            <strong>Name:</strong> {data.data.name}
           </p>
           <p>
-            <strong>Size:</strong> {fileInfo.size} bytes
+            <strong>Size:</strong> {data.data.size} bytes
           </p>
+          <p>
+            <strong>Shared by:</strong> {data.data.sharedBy}
+          </p>
+
           <button onClick={handleDownload} disabled={isPending}>
             {isPending ? "Downloading..." : "Download File"}
           </button>
@@ -59,6 +62,7 @@ export const LinkShared = () => {
       ) : (
         <p>No file information found.</p>
       )}
+      {data.error && <p>{data.error}</p>}
     </div>
   );
 };

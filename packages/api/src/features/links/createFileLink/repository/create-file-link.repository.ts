@@ -20,12 +20,27 @@ export class CreateFileLinkRepository implements ICreateFileLinkRepository {
 
     if (!fileExists) throw new FileNotFoundError();
 
-    const [link] = await this._db("link")
-      .insert({
-        file_id: credentials.fileId,
-      })
-      .returning("id");
+    const existingLink = await this._db("link")
+      .where("file_id", credentials.fileId)
+      .first();
 
-    return link.id;
+    if (existingLink) {
+      await this._db("link")
+        .where("id", existingLink.id)
+        .update({
+          expires_at: this._db.raw("expires_at + INTERVAL '1 hour'"),
+        });
+
+      return existingLink.id;
+    } else {
+      const [link] = await this._db("link")
+        .insert({
+          file_id: credentials.fileId,
+          expires_at: this._db.raw("CURRENT_TIMESTAMP + INTERVAL '1 hour'"),
+        })
+        .returning("id");
+
+      return link.id;
+    }
   }
 }

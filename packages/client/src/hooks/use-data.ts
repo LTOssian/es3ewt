@@ -9,7 +9,11 @@ import {
 // Use a query to GET data
 export function useGetData<T>(path: string, options?: any) {
   return useQuery<{ data: T; error: any }>({
-    queryKey: [path],
+    ...(options.disabledQueryKey
+      ? {}
+      : {
+          queryKey: [path],
+        }),
     queryFn: async () => {
       const res = await authorizedGet(path);
       if (res.error == "Invalid token") {
