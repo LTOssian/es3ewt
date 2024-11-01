@@ -67,14 +67,6 @@ Pour exécuter l'application en local, suivez les étapes ci-dessous :
    - Lien du Backend : [http://localhost:8080/](http://localhost:8080/)
    - Lien du Frontend : [http://localhost:5173/](http://localhost:5173/)
 
-## Crédits
-
-- [AlessGarau](https://github.com/AlessGarau)
-- [LeBenjos](https://github.com/LeBenjos)
-- [LTOssian](https://github.com/LTOssian)
-
----
-
 ## Documentation du Makefile
 
 Le Makefile fournit des commandes pratiques pour gérer l'application.
@@ -93,4 +85,10 @@ Le Makefile fournit des commandes pratiques pour gérer l'application.
 
 ---
 
-Pour toute question ou suggestion, n'hésitez pas à contacter les contributeurs listés ci-dessus. Merci de votre intérêt !
+Pour toute question ou suggestion, n'hésitez pas à contacter les contributeurs listés ci-dessous. Merci de votre intérêt !
+
+## Crédits
+
+- [AlessGarau](https://github.com/AlessGarau)
+- [LeBenjos](https://github.com/LeBenjos)
+- [LTOssian](https://github.com/LTOssian)

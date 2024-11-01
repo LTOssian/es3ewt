@@ -42,15 +42,13 @@ Pour une expérience utilisateur complète, l'API est intégrée à un [frontend
 | `/user/limit`           | GET     | -                                                  | `{ "limit": number }`                           | Récupère les limites de stockage et de partage de l'utilisateur authentifié.                       |
 |                         |         |                                                    | **Status Codes**: 200, 401                      |                                                                                                    |
 
+### Remarques
+
+- Toutes les requêtes nécessitant un jeton d'authentification doivent inclure une paire clé/valeur dans le cookie `token/{token}`.
+- Les réponses d'erreurs sont gérés, juste trop long à noter.
+
 ## Crédits
 
 - [AlessGarau](https://github.com/AlessGarau)
 - [LeBenjos](https://github.com/LeBenjos)
 - [LTOssian](https://github.com/LTOssian)
-
----
-
-### Remarques
-
-- Toutes les requêtes nécessitant un jeton d'authentification doivent inclure une paire clé/valeur dans le cookie `token/{token}`.
-- Les réponses d'erreurs sont gérés, juste trop long à noter.

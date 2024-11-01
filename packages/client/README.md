@@ -1,7 +1,7 @@
 # EntreS3etWeTransfer Frontend
 
 Bienvenue sur [EntreS3etWeTransfer](https://github.com/LTOssian/EntreS3etWeTransfer).  
-Description de l'app
+Une application web permettant de stocker jusqu'à 2 Go de fichiers par utilisateur ! Le frontend, étant sommaire pour ce projet, n'est pas très élaboré.
 
 L'application utilise une [API](../api/README.md).
 
