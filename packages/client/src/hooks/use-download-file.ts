@@ -1,8 +1,7 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { authorizedGet, basicPost } from "../lib/authorized-fetch";
+import { useMutation } from "@tanstack/react-query";
+import { basicPost } from "../lib/authorized-fetch";
 
 export function useDownloadFile(path: string) {
-  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async () => {
       const response = await basicPost(path);
