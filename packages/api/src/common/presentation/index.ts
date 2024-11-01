@@ -9,6 +9,7 @@ import { ZodError } from "zod";
 import cookieParser from "cookie-parser";
 import express, { ErrorRequestHandler, Request, Response } from "express";
 import morgan from "morgan";
+import cors from "cors";
 
 config();
 
@@ -25,6 +26,14 @@ export class App {
     this._app.use(express.urlencoded({ extended: true }));
     this._app.use(cookieParser());
     this._app.use(morgan("dev"));
+    this._app.use(
+      cors({
+        origin: ["http://localhost:5173", "http://es3ewt-client:5173"],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+        credentials: true,
+      }),
+    );
 
     this._app.use(
       expressjwt({
