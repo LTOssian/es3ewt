@@ -13,6 +13,7 @@ export const FileUploadButton = ({ path }: IFileUploadButtonProps) => {
     ["files/me/all"],
     {
       headers: {},
+      stringify: false,
     },
   );
 

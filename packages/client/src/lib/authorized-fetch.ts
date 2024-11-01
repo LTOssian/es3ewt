@@ -40,17 +40,19 @@ export async function authorizedGet(path: string) {
   return await authorizedFetch(path);
 }
 
-export async function authorizedPost<T>(path: string, body: T, options: any) {
-  console.log(body);
+export async function authorizedPost<T>(
+  path: string,
+  body: any,
+  options = { stringify: true },
+) {
   return await authorizedFetch(path, {
     method: "POST",
-    body: body,
+    body: options.stringify ? JSON.stringify(body) : body,
     ...options,
   });
 }
 
 export async function authorizedPatch<T>(path: string, body: T) {
-  console.log(path, body);
   return await authorizedFetch(path, {
     method: "PATCH",
     body: JSON.stringify(body),
