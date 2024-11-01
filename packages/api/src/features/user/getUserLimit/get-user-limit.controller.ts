@@ -6,7 +6,7 @@ import { BaseController } from "../../../common/interface/base.controller";
 import { GetUserLimitUseCase } from "./get-user-limit.use-case";
 
 @injectable()
-export class GetUserLimitController extends BaseController<TGetUserLimitRequest> {
+export class GetUserLimitController extends BaseController<{}> {
   async handle(
     request: Request<TGetUserLimitRequest>,
     response: Response,

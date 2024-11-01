@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { usePostData } from "../../hooks/use-data";
+import { TGetUserLimitResponse } from "../../../../core/user/user";
+import { useGetData, usePostData } from "../../hooks/use-data";
 
 interface IFileUploadButtonProps {
   path: string;
@@ -16,6 +17,9 @@ export const FileUploadButton = ({ path }: IFileUploadButtonProps) => {
       stringify: false,
     },
   );
+
+  const { data: userInfo, isPending: userInfoIsPending } =
+    useGetData<TGetUserLimitResponse>("user/limit", {});
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -56,6 +60,15 @@ export const FileUploadButton = ({ path }: IFileUploadButtonProps) => {
         {isPending ? "Uploading..." : "Téléverser un fichier"}
       </button>
       {errorMessage && <p>Error: {errorMessage}</p>}
+      <span style={{ fontWeight: "bold", margin: "0 10px" }}>
+        {userInfo?.data.totalSize
+          ? (userInfo?.data.totalSize / 1000 / 1000 / 1000).toFixed(2) ===
+            "0.00"
+            ? "0.01<"
+            : (userInfo?.data.totalSize / 1000 / 1000 / 1000).toFixed(2)
+          : "0.00"}
+        /2.00Go
+      </span>
     </form>
   );
 };
