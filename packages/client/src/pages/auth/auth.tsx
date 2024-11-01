@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { CSSProperties, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { makeUrl } from "../../lib/authorized-fetch";
 
@@ -59,23 +59,42 @@ export const AuthForm: React.FC<AuthFormProps> = ({ isRegister }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>Username :</label>
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        required
-      />
-      <label>Mot de passe :</label>
-      <input
-        type="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-      <button type="submit">{isRegister ? "S'inscrire" : "Connexion"}</button>
-      {error && <p>{error}</p>}
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <label>Username :</label>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <label>Mot de passe :</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit">{isRegister ? "S'inscrire" : "Connexion"}</button>
+        {error && <p>{error}</p>}
+      </form>
+      <button
+        onClick={() =>
+          isRegister ? navigate("/auth/login") : navigate("/auth/register")
+        }
+        style={
+          {
+            color: "#516bf8",
+            textDecoration: "underline",
+            background: "none",
+            border: "none",
+          } as CSSProperties
+        }
+      >
+        {isRegister
+          ? "Déjà un compte ? Se connecter !"
+          : "Pas de compte ? S'incrire !"}
+      </button>
+    </>
   );
 };
