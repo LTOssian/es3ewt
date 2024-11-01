@@ -1,5 +1,7 @@
 # EntreS3etWeTransfer
 
+[Lien vers la documentation de l'API et des endpoints](./packages/api/README.md)
+
 ## Objectifs du Projet
 
 Ce projet vise à créer une application de partage de fichiers avec les fonctionnalités suivantes :
@@ -17,8 +19,7 @@ Ce projet vise à créer une application de partage de fichiers avec les fonctio
 - **Documentation complète du projet**. ✅
 
 | ![Interface dashboard](https://github.com/user-attachments/assets/e4b78157-839e-40a7-914d-014bedb98d49) | ![Interface share](https://github.com/user-attachments/assets/d27744c4-914d-42c1-8e8c-0d2e92b49dcd) |
-|:--:|:--:|
-
+| :-----------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------: |
 
 ## Technologies Utilisées
 
@@ -74,7 +75,7 @@ Pour exécuter l'application en local, suivez les étapes ci-dessous :
 
 ## Documentation du Makefile
 
-Le Makefile fournit des commandes pratiques pour gérer l'application. 
+Le Makefile fournit des commandes pratiques pour gérer l'application.
 
 ### Commandes
 
