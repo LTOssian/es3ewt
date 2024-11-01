@@ -83,6 +83,13 @@ export class App {
           statusCode: error.statusCode,
           message: error.message,
         });
+      } else if ((error as any).constraint === "file_name_unique") {
+        let errorFormat = error as any;
+        response.status(409).send({
+          code: errorFormat.constraint,
+          message: errorFormat.detail,
+          statusCode: 409,
+        });
       } else {
         response.status(500).send({
           statusCode: 500,

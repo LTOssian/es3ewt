@@ -22,7 +22,7 @@ export const FileUploadButton = ({ path }: IFileUploadButtonProps) => {
     }
   };
 
-  const handleUpload = async (e: Event) => {
+  const handleUpload = async (e: any) => {
     e.preventDefault();
     console.log(e);
     if (!file) return;
@@ -34,7 +34,8 @@ export const FileUploadButton = ({ path }: IFileUploadButtonProps) => {
 
     uploadFile(formData, {
       onSuccess: ({ data, error }) => {
-        if (error && typeof error === "object") {
+        console.log(data, error);
+        if (error) {
           setErrorMessage(error || "An unknown error occurred.");
         } else {
           setErrorMessage("An unknown error occurred.");

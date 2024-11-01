@@ -40,6 +40,7 @@ export class StoreInBucketController implements BaseController<{}> {
         throw new UserStorageLimitExceededError();
       }
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }
