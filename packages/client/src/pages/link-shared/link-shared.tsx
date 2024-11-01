@@ -15,7 +15,7 @@ export const LinkShared = () => {
 
   const handleDownload = async (e: any) => {
     e.preventDefault();
-    await downloadFile.mutateAsync();
+    await downloadFile.mutateAsync(data.data.name);
   };
 
   if (isLoading) return <p>Loading file info...</p>;

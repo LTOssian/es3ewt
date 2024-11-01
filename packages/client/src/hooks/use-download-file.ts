@@ -3,7 +3,7 @@ import { basicPost } from "../lib/authorized-fetch";
 
 export function useDownloadFile(path: string) {
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (filename: string) => {
       const response = await basicPost(path);
       console.log(response);
 
@@ -25,11 +25,6 @@ export function useDownloadFile(path: string) {
       }
 
       const blob = new Blob(chunks);
-
-      const contentDisposition = response.headers.get("Content-Disposition");
-      const filename = contentDisposition
-        ? contentDisposition.split("filename=")[1].replace(/"/g, "")
-        : "downloaded-file.zip"; // Default filename
 
       return { blob, filename };
     },
