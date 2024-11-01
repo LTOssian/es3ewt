@@ -22,38 +22,34 @@ Bienvenue sur EntreS3etWeTransfer, un projet réalisé à HETIC.
 
 ![global](https://skillicons.dev/icons?i=docker,git,typescript)
 
-### [Client](./client/README.md)
+### [Client](./packages/client/README.md)
 
 ![frontend](https://skillicons.dev/icons?i=vite,react)
 
-### [API](./api/README.md)
+### [API](./packages/api/README.md)
 
 ![backend](https://skillicons.dev/icons?i=nodejs,express)
 
 ### Base de données
 
-![database](https://skillicons.dev/icons?i=postgres,aws)
+![database](https://skillicons.dev/icons?i=postgres,minio)
 
 ## Initialisation de l'application en local avec Docker
 
 1. **Cloner le repository :**
 
 ```bash
-git clone https://github.com/LTOssian/EntreS3etWeTransfer.git
+git clone https://github.com/LTOssian/es3ewt.git
 ```
 
-2. **Ouvrer votre application Docker.**
-
-3. **Ouvrer un terminal et naviguer jusqu'à la racine du projet.**
-
-4. **Insérer la commande pour générer les modules, les .env, les images et lancer les conteneurs en local :**
+2. **Lancer les containers**
 
 ```bash
 make start
 ```
 
 5. **Utiliser EntreS3etWeTransfer !**
-   - Lien du Backend : <http://localhost:3000/>
+   - Lien du Backend : <http://localhost:8080/>
    - Lien du Frontend : <http://localhost:5173/>
 
 ## Crédits
