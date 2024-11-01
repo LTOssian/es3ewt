@@ -10,6 +10,8 @@ services:
       - ./es3ewt-db:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+    - es3ewt-network
 
   es3ewt-minio:
     image: minio/minio:latest
@@ -22,6 +24,8 @@ services:
     command: server /data --console-address ":9001"
     volumes:
       - "./minio-data:/var/lib/minio/data"
+    networks:
+    - es3ewt-network
 
   es3ewt-api:
     build:
@@ -46,6 +50,8 @@ services:
     volumes:
       - ../packages/api:/app/packages/api
       - ../packages/core:/app/packages/core
+    networks:
+    - es3ewt-network
 
   es3ewt-client:
     build:
@@ -58,3 +64,9 @@ services:
     volumes:
       - ../packages/client:/app/packages/client
       - ../packages/core:/app/packages/core
+    networks:
+    - es3ewt-network
+
+networks:
+  es3ewt-network:
+    driver: bridge

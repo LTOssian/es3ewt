@@ -3,6 +3,7 @@ import { BaseUseCase } from "../../../common/interface/base.use-case";
 import { IGetAllFilesByUserIdRepository } from "./repository/file.repository.interface";
 import {
   TFileResponse,
+  TFileWithShare,
   TGetFileByUserIdRequest,
 } from "../../../../../core/file/file";
 
@@ -17,7 +18,7 @@ export class GetFileUseCase
 
   public async handle(
     credentials: TGetFileByUserIdRequest,
-  ): Promise<TFileResponse[]> {
+  ): Promise<TFileWithShare[]> {
     const allFiles =
       await this._fileRepository.getAllFilesByUserId(credentials);
 

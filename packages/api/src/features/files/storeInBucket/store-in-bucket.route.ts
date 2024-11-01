@@ -1,4 +1,4 @@
-import { RequestHandler, Router } from "express";
+import { Router } from "express";
 import { StoreInBucketController } from "./store-in-bucket.controller";
 import { container } from "tsyringe";
 import multer from "multer";

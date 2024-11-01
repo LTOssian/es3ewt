@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const getFileByIdRequestSchema = z.object({
+export const fileIdRequestSchema = z.object({
   fileId: z.string().uuid(),
 });
 
@@ -17,9 +17,27 @@ export const fileResponseSchema = z.object({
   lastUpdate: z.date(),
 });
 
-export type TGetFileByIdRequest = z.infer<typeof getFileByIdRequestSchema>;
+export const updateFileSchema = z.object({
+  id: z.string().uuid(),
+  name: z.string().min(1).optional(),
+});
+
+export const deleteFileSchema = z.object({
+  id: z.string().uuid(),
+});
+
+export type TGetFileByIdRequest = z.infer<typeof fileIdRequestSchema>;
 export type TGetFileByUserIdRequest = z.infer<
   typeof getFileByUserIdRequestSchema
 >;
 // export type TGetFileByIdResponse = z.infer<typeof getFileByIdResponseSchema>;
 export type TFileResponse = z.infer<typeof fileResponseSchema>;
+
+export type TUpdateFile = z.infer<typeof updateFileSchema>;
+export type TDeleteFile = z.infer<typeof deleteFileSchema>;
+export type TFileWithShare = TFileResponse & {
+  share: {
+    isShared: boolean;
+    link: string | null;
+  };
+};

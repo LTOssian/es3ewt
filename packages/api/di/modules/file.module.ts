@@ -8,6 +8,9 @@ import { Client } from "minio";
 import { IGetAllFilesByUserIdRepository } from "../../src/features/files/getFiles/repository/file.repository.interface";
 import { GetAllFilesByUserIdRepository } from "../../src/features/files/getFiles/repository/file.repository";
 import { GetFileByIdRepository } from "../../src/features/files/getFileById/get-file-by-id.repository";
+import { IEditMetaDataRepository } from "../../src/features/files/editMetadata/repository/edit-meta-data.repository.interface";
+import EditMetadataRepository from "../../src/features/files/editMetadata/repository/edit-meta-data-repository";
+import DeleteFileRepository from "../../src/features/files/deleteFileById/repository/delete-file.repository";
 
 export class FileStorageContainerModule {
   public static initializeModule() {
@@ -41,6 +44,21 @@ export class FileStorageContainerModule {
       "GetFileByIdRepository",
       {
         useClass: GetFileByIdRepository,
+      },
+      { lifecycle: Lifecycle.Singleton },
+    );
+
+    container.register<IEditMetaDataRepository>(
+      "EditMetaDataRepository",
+      {
+        useClass: EditMetadataRepository,
+      },
+      { lifecycle: Lifecycle.Singleton },
+    );
+    container.register<DeleteFileRepository>(
+      "DeleteFileRepository",
+      {
+        useClass: DeleteFileRepository,
       },
       { lifecycle: Lifecycle.Singleton },
     );

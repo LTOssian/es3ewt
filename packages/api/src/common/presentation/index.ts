@@ -9,6 +9,7 @@ import { ZodError } from "zod";
 import cookieParser from "cookie-parser";
 import express, { ErrorRequestHandler, Request, Response } from "express";
 import morgan from "morgan";
+import cors from "cors";
 
 config();
 
@@ -25,13 +26,13 @@ export class App {
     this._app.use(express.urlencoded({ extended: true }));
     this._app.use(cookieParser());
     this._app.use(morgan("dev"));
-
     this._app.use(
-      expressjwt({
-        secret: process.env.JWT_SECRET!,
-        algorithms: ["HS256"],
-        getToken: (req) => req.cookies.token,
-      }).unless({ path: ["/health", "/auth/login", "/auth/register"] }),
+      cors({
+        origin: ["http://localhost:5173", "http://es3ewt-client:5173"],
+        methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+        credentials: true,
+      }),
     );
 
     initializeContainer();
@@ -73,6 +74,13 @@ export class App {
           error: error.name,
           statusCode: error.statusCode,
           message: error.message,
+        });
+      } else if ((error as any).constraint === "file_name_unique") {
+        let errorFormat = error as any;
+        response.status(409).send({
+          code: errorFormat.constraint,
+          message: errorFormat.detail,
+          statusCode: 409,
         });
       } else {
         response.status(500).send({

@@ -14,13 +14,12 @@ export class StoreInBucketController implements BaseController<{}> {
   ): Promise<void> {
     try {
       const { file } = request;
-      // console.log(request.auth.userId);
-      const userId = request?.auth?.userId || ""; // Ensure `userId` is extracted correctly based on authentication context
-      const bucketPath = `${userId}-files`;
-
       if (!file) {
         throw new BadFileRequestError();
       }
+
+      const userId = request?.auth?.userId || ""; // Ensure `userId` is extracted correctly based on authentication context
+      const bucketPath = `${userId}-files`;
 
       const userLimitUseCase = container.resolve(GetUserLimitUseCase);
 
@@ -52,6 +51,7 @@ export class StoreInBucketController implements BaseController<{}> {
         throw new UserStorageLimitExceededError();
       }
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }

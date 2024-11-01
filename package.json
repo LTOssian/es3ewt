@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "if [ \"$HUSKY\" != \"0\" ]; then husky install; fi",
     "lint-staged": "lint-staged",
-    "start:api": "npm run --workspace=packages/api dev"
+    "start:api": "npm run --workspace=packages/api dev",
+    "start:client": "npm run --workspace=packages/client dev"
   },
   "workspaces": [
     "packages/api",
@@ -25,8 +26,10 @@
     "@types/jsonwebtoken": "^9.0.7",
     "@types/supertest": "^6.0.2",
     "@vitest/ui": "^2.1.4",
+    "autoprefixer": "^10.4.20",
     "husky": "^9.1.6",
     "lint-staged": "^15.2.10",
+    "postcss": "^8.4.47",
     "prettier": "^3.3.3",
     "supertest": "^7.0.0",
     "ts-jest": "^29.2.5",
