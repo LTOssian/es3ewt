@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
-import { useGetData, usePostData } from "../../hooks/use-data"; // Assuming these hooks are set up
+import { useGetData } from "../../hooks/use-data"; // Assuming these hooks are set up
+import { useDownloadFile } from "../../hooks/use-download-file";
 
 export const LinkShared = () => {
   const { linkId } = useParams<{ linkId: string }>();
@@ -10,31 +11,11 @@ export const LinkShared = () => {
   }>(`links/shared/${linkId}`, { disabledQueryKey: true });
 
   // Download file hook
-  const { mutate: downloadFile, isPending } = usePostData(
-    `links/shared/${linkId}`,
-    [],
-  );
+  const downloadFile = useDownloadFile(`links/shared/${linkId}`);
 
-  const handleDownload = (e: any) => {
+  const handleDownload = async (e: any) => {
     e.preventDefault();
-    downloadFile(
-      {},
-      {
-        onSuccess: (data: any) => {
-          console.log(data);
-          // const blob = new Blob([data], { type: data.type });
-          // const link = document.createElement("a");
-          // link.href = URL.createObjectURL(blob);
-          // link.download = data.name || "downloaded-file";
-          // document.body.appendChild(link);
-          // link.click();
-          // document.body.removeChild(link);
-        },
-        onError: (error) => {
-          console.error("Download failed:", error);
-        },
-      },
-    );
+    await downloadFile.mutateAsync();
   };
 
   if (isLoading) return <p>Loading file info...</p>;
@@ -55,8 +36,8 @@ export const LinkShared = () => {
             <strong>Shared by:</strong> {data.data.sharedBy}
           </p>
 
-          <button onClick={handleDownload} disabled={isPending}>
-            {isPending ? "Downloading..." : "Download File"}
+          <button onClick={handleDownload} disabled={downloadFile.isPending}>
+            {downloadFile.isPending ? "Downloading..." : "Download File"}
           </button>
         </div>
       ) : (

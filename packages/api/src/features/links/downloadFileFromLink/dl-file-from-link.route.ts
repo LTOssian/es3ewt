@@ -15,7 +15,6 @@ export class DownloadFileFromLinkRoute {
 
     router.post(
       "/shared/:linkId",
-      authorizationMiddleware,
       container.resolve(ValidateLinkController).handle,
       container.resolve(DownloadFileFromLinkController).handle,
     );

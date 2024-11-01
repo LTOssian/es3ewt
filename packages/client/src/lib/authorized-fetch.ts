@@ -34,6 +34,12 @@ async function authorizedFetch(
   }
 }
 
+export async function basicPost(path: string) {
+  return await fetch(await makeUrl(path), {
+    method: "POST",
+  });
+}
+
 // CRUD operations
 
 export async function authorizedGet(path: string) {
