@@ -22,7 +22,7 @@ const login = async (username: string, password: string): Promise<void> => {
   const data: LoginResponse = await response.json();
   const token = data.token;
 
-  localStorage.setItem("authToken", token);
+  document.cookie = `token=${token}; path=/`;
 };
 
 export const LoginForm: React.FC = () => {
