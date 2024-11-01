@@ -1,7 +1,7 @@
 # EntreS3etWeTransfer API
 
 Bienvenue sur l'API de [EntreS3etWeTransfer](https://github.com/LTOssian/EntreS3etWeTransfer).  
-Cette API Node.js utilise Express et a été développée en TypeScript. Elle est connectée à une base de données PostgreSQL hébergée sur [MinIO](https://min.io/). L'application est conçue pour gérer les téléchargements et le partage de fichiers de manière sécurisée et efficace.
+Cette API Node.js utilise Express et a été développée en TypeScript. Elle est connectée à une base de données PostgreSQL hébergée sur [MinIO](https://min.io/). L'application est conçue pour gérer les téléchargements et le partage de fichiers de manière sécurisée et efficace. Afin de gagner du stockage, les fichiers envoyés sont compressés avant d'être stockés.
 
 Pour une expérience utilisateur complète, l'API est intégrée à un [frontend](../client/README.md).
 
