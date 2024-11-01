@@ -1,5 +1,6 @@
 import React, { CSSProperties, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Welcome from "../../components/welcome/welcome";
 import { makeUrl } from "../../lib/authorized-fetch";
 
 interface AuthFormProps {
@@ -60,6 +61,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ isRegister }) => {
 
   return (
     <>
+      <Welcome />
       <form onSubmit={handleSubmit}>
         <label>Username :</label>
         <input

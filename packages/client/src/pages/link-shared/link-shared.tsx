@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import Welcome from "../../components/welcome/welcome";
 import { useGetData } from "../../hooks/use-data"; // Assuming these hooks are set up
 import { useDownloadFile } from "../../hooks/use-download-file";
 
@@ -23,6 +24,7 @@ export const LinkShared = () => {
 
   return (
     <div>
+      <Welcome />
       <h1>File Info</h1>
       {data.data ? (
         <div>
