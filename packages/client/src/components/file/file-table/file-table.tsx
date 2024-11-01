@@ -6,7 +6,7 @@ interface FileTableProps {
 }
 
 export const FileTable = (props: FileTableProps) => {
-  const { data, error, isLoading } = useGetData<TFileWithShare[]>(
+  const { data, error, isPending } = useGetData<TFileWithShare[]>(
     props.path,
     {},
   );
@@ -20,7 +20,7 @@ export const FileTable = (props: FileTableProps) => {
   }
 
   return (
-    <div className="file-grid">
+    <div className="file-table">
       <table className="file-item">
         <thead>
           <tr>

@@ -10,9 +10,15 @@ import {
 export function useGetData<T>(path: string, options?: any) {
   return useQuery<{ data: T; error: any }>({
     queryKey: [path],
-    queryFn: async () => await authorizedGet(path),
+    queryFn: async () => {
+      const res = await authorizedGet(path);
+      if (res.error == "Invalid token") {
+        window.location.href = "/auth/login";
+      }
+      return res;
+    },
     retry: (_failureCount, error) => {
-      if ((error.message = "Invalid token")) {
+      if (error.message == "Invalid token") {
         window.location.href = "/auth/login";
       }
     },
@@ -28,10 +34,10 @@ export function usePostData<T = any>(
 ) {
   const queryClient = useQueryClient();
   return useMutation<{ data: T; error: any }, Error, T>({
-    mutationFn: (body: T) => authorizedPost(path, body),
+    mutationFn: (body: T) => authorizedPost(path, body, options),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys }),
     retry: (_failureCount, error) => {
-      if ((error.message = "Invalid token")) {
+      if (error.message == "Invalid token") {
         window.location.href = "/auth/login";
         return false;
       }
@@ -49,7 +55,7 @@ export function usePatchData<T>(path: string, queryKey: string, options?: any) {
       authorizedPatch(path, body).then((res) => res.data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: [queryKey] }),
     retry: (_failureCount, error) => {
-      if ((error.message = "Invalid token")) {
+      if (error.message == "Invalid token") {
         window.location.href = "/auth/login";
       }
     },
@@ -64,7 +70,7 @@ export function useDeleteData(path: string, queryKey: string, options?: any) {
     mutationFn: () => authorizedDelete(path).then((res) => res.data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: [queryKey] }),
     retry: (_failureCount, error) => {
-      if ((error.message = "Invalid token")) {
+      if (error.message == "Invalid token") {
         window.location.href = "/auth/login";
       }
     },

@@ -12,10 +12,11 @@ async function authorizedFetch(
   try {
     const response = await fetch(url, {
       ...options,
-      headers: {
-        "Content-Type": "application/json",
-        ...options.headers,
-      },
+      headers: options.headers
+        ? options.headers
+        : {
+            "Content-Type": "application/json",
+          },
       credentials: "include",
     });
 
@@ -23,7 +24,6 @@ async function authorizedFetch(
     const data = await response.json().catch(() => null); // Catch JSON parse errors
     if (!response.ok) {
       // Handle non-200 responses as errors
-      // throw data;
       return { error: data?.message || "Request failed", status };
     }
 
@@ -40,14 +40,17 @@ export async function authorizedGet(path: string) {
   return await authorizedFetch(path);
 }
 
-export async function authorizedPost<T>(path: string, body: T) {
+export async function authorizedPost<T>(path: string, body: T, options: any) {
+  console.log(body);
   return await authorizedFetch(path, {
     method: "POST",
-    body: JSON.stringify(body),
+    body: body,
+    ...options,
   });
 }
 
 export async function authorizedPatch<T>(path: string, body: T) {
+  console.log(path, body);
   return await authorizedFetch(path, {
     method: "PATCH",
     body: JSON.stringify(body),
