@@ -50,7 +50,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ isRegister }) => {
       if (isRegister) {
         navigate("/auth/login");
       } else {
-        navigate("/welcome");
+        navigate("/");
       }
     } catch (error) {
       setError(
