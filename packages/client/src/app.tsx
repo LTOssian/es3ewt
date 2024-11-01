@@ -1,11 +1,6 @@
-import Welcome from "./components/welcome/welcome";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./router";
 
-function App() {
-  return (
-    <>
-      <Welcome />
-    </>
-  );
-}
-
-export default App;
+export const App = () => {
+  return <RouterProvider router={router} />;
+};
