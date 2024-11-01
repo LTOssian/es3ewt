@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   authorizedGet,
   authorizedPost,
-  authorizedPut,
+  authorizedPatch,
   authorizedDelete,
 } from "../lib/authorized-fetch";
 
@@ -16,31 +16,36 @@ export function useGetData<T>(path: string, options?: any) {
 }
 
 // Use a mutation to POST data
-export function usePostData<T>(path: string, options?: any) {
+export function usePostData<T = any>(
+  path: string,
+  queryKey: string,
+  options?: any,
+) {
   const queryClient = useQueryClient();
-  return useMutation({
+  return useMutation<T, Error, T>({
     mutationFn: (body: T) => authorizedPost(path, body).then((res) => res.data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: [path] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: [queryKey] }),
     ...options,
   });
 }
 
 // Use a mutation to PUT data
-export function usePutData<T>(path: string, options?: any) {
+export function usePatchData<T>(path: string, queryKey: string, options?: any) {
   const queryClient = useQueryClient();
   return useMutation<T, Error, T>({
-    mutationFn: (body: T) => authorizedPut(path, body).then((res) => res.data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: [path] }),
+    mutationFn: (body: T) =>
+      authorizedPatch(path, body).then((res) => res.data),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: [queryKey] }),
     ...options,
   });
 }
 
 // Use a mutation to DELETE data
-export function useDeleteData(path: string, options?: any) {
+export function useDeleteData(path: string, queryKey: string, options?: any) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: () => authorizedDelete(path).then((res) => res.data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: [path] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: [queryKey] }),
     ...options,
   });
 }
