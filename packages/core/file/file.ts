@@ -35,3 +35,9 @@ export type TFileResponse = z.infer<typeof fileResponseSchema>;
 
 export type TUpdateFile = z.infer<typeof updateFileSchema>;
 export type TDeleteFile = z.infer<typeof deleteFileSchema>;
+export type TFileWithShare = TFileResponse & {
+  share: {
+    isShared: boolean;
+    link: string | null;
+  };
+};

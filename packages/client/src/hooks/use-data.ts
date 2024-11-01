@@ -7,8 +7,8 @@ import {
 } from "../lib/authorized-fetch";
 
 // Use a query to GET data
-export function useGetData(path: string, options?: any) {
-  return useQuery({
+export function useGetData<T>(path: string, options?: any) {
+  return useQuery<T>({
     queryKey: [path],
     queryFn: () => authorizedGet(path),
     ...options,
