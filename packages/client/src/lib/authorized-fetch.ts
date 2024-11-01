@@ -1,4 +1,4 @@
-async function makeUrl(path: string) {
+export async function makeUrl(path: string) {
   const slashlessPath = path.startsWith("/") ? path.slice(1) : path;
   //   const domainResponse = await fetch("/api-info.json");
   //   const { domain } = await domainResponse.json();

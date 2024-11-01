@@ -2,21 +2,20 @@ import { createBrowserRouter, RouteObject } from "react-router-dom";
 import Welcome from "./components/welcome/welcome";
 import { PrivateRoute } from "./components/private/private";
 import { Dashboard } from "./pages/dashboard/dashboard";
+import { LoginForm } from "./pages/auth/login";
+// import RegisterForm from "./pages/auth/register";
 
 const routes: RouteObject[] = [
-  // test
   { path: "/welcome", element: <Welcome /> },
 
-  // Public route to Authentication page
-  // { path: "/auth", element: <Authentication /> },
+  { path: "/auth/login", element: <LoginForm /> },
+  // { path: "/auth/register", element: <RegisterForm /> },
 
-  // Private route for Dashboard under the base path
   {
     path: "/",
     element: <PrivateRoute />,
-    children: [
-      { index: true, element: <Dashboard /> }, // Dashboard as the base route
-    ],
+    children: [{ index: true, element: <Dashboard /> }],
   },
 ];
+
 export const router = createBrowserRouter(routes);
