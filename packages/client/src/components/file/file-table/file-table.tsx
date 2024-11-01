@@ -6,10 +6,7 @@ interface FileTableProps {
 }
 
 export const FileTable = (props: FileTableProps) => {
-  const { data, error, isPending } = useGetData<TFileWithShare[]>(
-    props.path,
-    {},
-  );
+  const { data, error } = useGetData<TFileWithShare[]>(props.path, {});
 
   if (!data && !error) {
     return <div>Loading...</div>;

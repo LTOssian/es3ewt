@@ -1,4 +1,8 @@
 start: 
+	npm install
+	@if [ ! -f packages/api/.env ]; then \
+		cp packages/api/.env.example packages/api/.env; \
+	fi	
 	docker compose -f docker/docker-compose.yaml up -d --build
 
 stop:
