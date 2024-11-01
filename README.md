@@ -1,6 +1,7 @@
 # EntreS3etWeTransfer
 
 [Lien vers la documentation de l'API et des endpoints](./packages/api/README.md)
+[Collection POSTMAN/Insomnia des endpoints](./documentation/es3ewt.postman_collection.json)
 
 ## Objectifs du Projet
 

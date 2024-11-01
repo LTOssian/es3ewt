@@ -1,0 +1,287 @@
+{
+  "info": {
+    "_postman_id": "395b9682-813d-4cc7-8d2c-07cb718df538",
+    "name": "es3ewt",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "26434649",
+    "_collection_link": "https://cloudy-equinox-473294.postman.co/workspace/%2Fhetic-apis~4f478cdb-34db-42ec-9dd0-cea2deb3ef7a/collection/26434649-395b9682-813d-4cc7-8d2c-07cb718df538?action=share&source=collection_link&creator=26434649"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI3NWQzMDZmMi0yMGUyLTQwNjYtYmE3NS01MmU2N2ZhZGJkYzgiLCJpYXQiOjE3MzAzMTE4MTQsImV4cCI6MTczMDMxNTQxNH0.51H0xwe3fwG-xlvpTguAOY3dmF52XNttMTVJZl-_yN0",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"Louisan\",\n    \"password\": \"abcdefg\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/auth/login",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["auth", "login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"username\": \"Louisan\",\n    \"password\": \"abcdefg\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/auth/register",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["auth", "register"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "t5mlx24u62zbvbcio4m3jp26ntneqxwh",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "File",
+      "item": [
+        {
+          "name": "Post file",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "file",
+                  "type": "file",
+                  "src": "/Users/User11/Downloads/Bulletin-retard.pdf"
+                }
+              ]
+            },
+            "url": {
+              "raw": "localhost:8080/files/",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["files", ""]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get By Id",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        },
+        {
+          "name": "Get By user Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/files/me/all",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["files", "me", "all"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete file",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/files/:fileId",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["files", ":fileId"],
+              "variable": [
+                {
+                  "key": "fileId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update file name",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Dédicasse à personne, fallait être la\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/files/:fileId",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["files", ":fileId"],
+              "variable": [
+                {
+                  "key": "fileId",
+                  "value": "739e8341-7620-468e-aaed-01b44ef43dfd"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Link",
+      "item": [
+        {
+          "name": "Download shared",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/links/shared/b13df9a9-52b6-41ad-b703-0f75a79ad251",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": [
+                "links",
+                "shared",
+                "b13df9a9-52b6-41ad-b703-0f75a79ad251"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create share link",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:8080/links/:fileId",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["links", ":fileId"],
+              "variable": [
+                {
+                  "key": "fileId",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get link information",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/links/shared/b13df9a9-52b6-41ad-b703-0f75a79ad251",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": [
+                "links",
+                "shared",
+                "b13df9a9-52b6-41ad-b703-0f75a79ad251"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Get limit",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:8080/user/limit",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["user", "limit"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}
