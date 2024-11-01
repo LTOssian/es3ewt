@@ -4,7 +4,7 @@ import { FileGrid } from "../../components/file/file-grid/file-grid";
 export const Dashboard = () => {
   return (
     <>
-      <FileUploadButton path="files" />
+      <FileUploadButton path={"files"} />
       <FileGrid path={"files/me/all"} />
     </>
   );

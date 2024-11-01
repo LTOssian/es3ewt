@@ -11,7 +11,7 @@ export const FileGrid = (props: FileGridProps) => {
     {},
   );
 
-  if (isLoading) {
+  if (!data && !error) {
     return <div>Loading...</div>;
   }
 
@@ -21,7 +21,10 @@ export const FileGrid = (props: FileGridProps) => {
 
   return (
     <div className="file-grid">
-      {data?.map((file) => <FileCard file={file} />)}
+      {data.data.map((file) => (
+        <FileCard key={file.id} file={file} />
+      ))}
+      {error}
     </div>
   );
 };

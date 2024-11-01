@@ -4,18 +4,18 @@ import { usePostData } from "../../hooks/use-data";
 interface IFileUploadButtonProps {
   path: string;
 }
+
 export const FileUploadButton = ({ path }: IFileUploadButtonProps) => {
   const [file, setFile] = useState<File | null>(null);
-
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const {
     mutate: uploadFile,
-    isError,
     error,
     isPending,
-  } = usePostData<FormData>(path);
+  } = usePostData<FormData>(path, ["files/me/all"]);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
+    if (e.target.files && e.target.files.length > 0) {
       setFile(e.target.files[0]);
     }
   };
@@ -27,8 +27,16 @@ export const FileUploadButton = ({ path }: IFileUploadButtonProps) => {
     formData.append("file", file);
 
     uploadFile(formData, {
-      onSuccess: () => {
-        console.log("File uploaded successfully!");
+      onSuccess: ({ data, error }) => {
+        if (error && typeof error === "object") {
+          setErrorMessage(error || "An unknown error occurred.");
+        } else {
+          setErrorMessage("An unknown error occurred.");
+        }
+        if (data) {
+          setErrorMessage(null);
+          console.log(data);
+        }
       },
     });
   };
@@ -39,7 +47,7 @@ export const FileUploadButton = ({ path }: IFileUploadButtonProps) => {
       <button onClick={handleUpload} disabled={isPending || !file}>
         {isPending ? "Uploading..." : "Upload File"}
       </button>
-      {isError && <p>Error: {error?.message}</p>}
+      {errorMessage && <p>Error: {errorMessage}</p>}
     </div>
   );
 };
