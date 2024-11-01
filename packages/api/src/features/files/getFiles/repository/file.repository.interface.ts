@@ -1,8 +1,8 @@
 import {
   TFileResponse,
+  TFileWithShare,
   TGetFileByUserIdRequest,
 } from "../../../../../../core/file/file";
-import { TFileWithShare } from "./file.repository";
 
 export interface IGetAllFilesByUserIdRepository {
   getAllFilesByUserId(

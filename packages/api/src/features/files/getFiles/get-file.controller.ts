@@ -2,11 +2,10 @@ import { container, injectable } from "tsyringe";
 import { BaseController } from "../../../common/interface/base.controller";
 import { NextFunction, Request, Response } from "express";
 import {
-  TFileResponse,
+  TFileWithShare,
   TGetFileByUserIdRequest,
 } from "../../../../../core/file/file";
 import { GetFileUseCase } from "./get-file.use-case";
-import { TFileWithShare } from "./repository/file.repository";
 
 @injectable()
 export class GetFileController extends BaseController<TGetFileByUserIdRequest> {

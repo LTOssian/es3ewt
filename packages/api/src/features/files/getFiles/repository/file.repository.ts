@@ -3,15 +3,9 @@ import { IGetAllFilesByUserIdRepository } from "./file.repository.interface";
 import { Knex } from "knex";
 import {
   TFileResponse,
+  TFileWithShare,
   TGetFileByUserIdRequest,
 } from "../../../../../../core/file/file";
-
-export type TFileWithShare = TFileResponse & {
-  share: {
-    isShared: boolean;
-    link: string | null;
-  };
-};
 
 @injectable()
 export class GetAllFilesByUserIdRepository

@@ -3,9 +3,9 @@ import { BaseUseCase } from "../../../common/interface/base.use-case";
 import { IGetAllFilesByUserIdRepository } from "./repository/file.repository.interface";
 import {
   TFileResponse,
+  TFileWithShare,
   TGetFileByUserIdRequest,
 } from "../../../../../core/file/file";
-import { TFileWithShare } from "./repository/file.repository";
 
 @injectable()
 export class GetFileUseCase
