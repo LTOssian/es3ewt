@@ -12,27 +12,31 @@ Ce projet vise à créer une application de partage de fichiers avec les fonctio
 - **Gestion des métadonnées associées** aux fichiers. ✅
 - **Suppression de fichiers**. ✅
 - **Mise en place d'un quota de téléversement maximal de 2 Go par utilisateur**. ✅
-- **Génération de liens de partage temporaires et publics** pour les fichiers ou groupes de fichiers. ✅
+- **Génération de liens de partage temporaires (1h) et publics** pour les fichiers. ✅
 - **Création d'un frontend** pour interagir avec le service. ✅
 - **Documentation complète du projet**. ✅
+
+| ![Interface dashboard](https://github.com/user-attachments/assets/e4b78157-839e-40a7-914d-014bedb98d49) | ![Interface share](https://github.com/user-attachments/assets/d27744c4-914d-42c1-8e8c-0d2e92b49dcd) |
+|:--:|:--:|
+
 
 ## Technologies Utilisées
 
 ### Global
 
-![global](https://skillicons.dev/icons?i=docker,git,typescript)
+![Technologies globales](https://skillicons.dev/icons?i=docker,git,typescript)
 
 ### [Client](./packages/client/README.md)
 
-![frontend](https://skillicons.dev/icons?i=vite,react)
+![Technologies du frontend](https://skillicons.dev/icons?i=vite,react)
 
 ### [API](./packages/api/README.md)
 
-![backend](https://skillicons.dev/icons?i=nodejs,express)
+![Technologies du backend](https://skillicons.dev/icons?i=nodejs,express)
 
 ### Base de données
 
-![database](https://skillicons.dev/icons?i=postgres,minio)
+![Base de données](https://skillicons.dev/icons?i=postgres,minio)
 
 ## Initialisation de l'Application en Local avec Docker
 
@@ -86,4 +90,4 @@ Le Makefile fournit des commandes pratiques pour gérer l'application.
 
 ---
 
-Pour toute question ou suggestion, n'hésitez pas à contacter les contributeurs listés ci-dessus. Merci de votre intérêt pour **EntreS3etWeTransfer** !
+Pour toute question ou suggestion, n'hésitez pas à contacter les contributeurs listés ci-dessus. Merci de votre intérêt !
