@@ -12,6 +12,14 @@ export class StoreInBucketRoute {
     router.post(
       "/",
       upload.single("file"),
+      (req, res, next) => {
+        console.log(req.headers);
+        console.log(req.header);
+        console.log(req.body);
+        console.log(req.auth);
+        console.log("Received file:", req.file); // Should log file details
+        next();
+      },
       authorizationMiddleware,
       container.resolve(StoreInBucketController).handle,
     );

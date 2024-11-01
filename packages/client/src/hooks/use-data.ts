@@ -8,9 +8,20 @@ import {
 
 // Use a query to GET data
 export function useGetData<T>(path: string, options?: any) {
-  return useQuery<T>({
+  return useQuery<{ data: T; error: any }>({
     queryKey: [path],
-    queryFn: () => authorizedGet(path),
+    queryFn: async () => {
+      const res = await authorizedGet(path);
+      if (res.error == "Invalid token") {
+        window.location.href = "/auth/login";
+      }
+      return res;
+    },
+    retry: (_failureCount, error) => {
+      if (error.message == "Invalid token") {
+        window.location.href = "/auth/login";
+      }
+    },
     ...options,
   });
 }
@@ -18,13 +29,20 @@ export function useGetData<T>(path: string, options?: any) {
 // Use a mutation to POST data
 export function usePostData<T = any>(
   path: string,
-  queryKey: string,
+  queryKeys: string[],
   options?: any,
 ) {
   const queryClient = useQueryClient();
-  return useMutation<T, Error, T>({
-    mutationFn: (body: T) => authorizedPost(path, body).then((res) => res.data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: [queryKey] }),
+  return useMutation<{ data: T; error: any }, Error, T>({
+    mutationFn: (body: T) => authorizedPost(path, body, options),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys }),
+    retry: (_failureCount, error) => {
+      if (error.message == "Invalid token") {
+        window.location.href = "/auth/login";
+        return false;
+      }
+      return true;
+    },
     ...options,
   });
 }
@@ -36,6 +54,11 @@ export function usePatchData<T>(path: string, queryKey: string, options?: any) {
     mutationFn: (body: T) =>
       authorizedPatch(path, body).then((res) => res.data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: [queryKey] }),
+    retry: (_failureCount, error) => {
+      if (error.message == "Invalid token") {
+        window.location.href = "/auth/login";
+      }
+    },
     ...options,
   });
 }
@@ -46,6 +69,11 @@ export function useDeleteData(path: string, queryKey: string, options?: any) {
   return useMutation({
     mutationFn: () => authorizedDelete(path).then((res) => res.data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: [queryKey] }),
+    retry: (_failureCount, error) => {
+      if (error.message == "Invalid token") {
+        window.location.href = "/auth/login";
+      }
+    },
     ...options,
   });
 }

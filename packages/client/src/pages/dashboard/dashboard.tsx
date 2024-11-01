@@ -1,9 +1,11 @@
-import { FileGrid } from "../../components/file/file-grid/file-grid";
+import { FileUploadButton } from "../../components/button/file-upload-button";
+import { FileTable } from "../../components/file/file-table/file-table";
 
 export const Dashboard = () => {
   return (
     <>
-      <FileGrid path={"files/me/all"} />
+      <FileUploadButton path={"files"} />
+      <FileTable path={"files/me/all"} />
     </>
   );
 };

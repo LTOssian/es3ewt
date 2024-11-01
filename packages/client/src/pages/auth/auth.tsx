@@ -36,7 +36,6 @@ const authenticate = async (
 };
 
 export const AuthForm: React.FC<AuthFormProps> = ({ isRegister }) => {
-  console.log("isRegister", isRegister);
   const navigate = useNavigate();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
