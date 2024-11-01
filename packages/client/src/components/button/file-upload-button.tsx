@@ -45,7 +45,7 @@ export const FileUploadButton = ({ path }: IFileUploadButtonProps) => {
     <div>
       <input type="file" onChange={handleFileChange} />
       <button onClick={handleUpload} disabled={isPending || !file}>
-        {isPending ? "Uploading..." : "Upload File"}
+        {isPending ? "Uploading..." : "Téléverser un fichier"}
       </button>
       {errorMessage && <p>Error: {errorMessage}</p>}
     </div>

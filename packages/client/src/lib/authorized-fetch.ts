@@ -47,9 +47,9 @@ export async function authorizedPost<T>(path: string, body: T) {
   });
 }
 
-export async function authorizedPut<T>(path: string, body: T) {
+export async function authorizedPatch<T>(path: string, body: T) {
   return await authorizedFetch(path, {
-    method: "PUT",
+    method: "PATCH",
     body: JSON.stringify(body),
   });
 }
