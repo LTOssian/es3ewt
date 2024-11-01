@@ -3,7 +3,6 @@ import Welcome from "./components/welcome/welcome";
 import { PrivateRoute } from "./components/private/private";
 import { Dashboard } from "./pages/dashboard/dashboard";
 import { AuthForm } from "./pages/auth/auth";
-// import RegisterForm from "./pages/auth/register";
 
 const routes: RouteObject[] = [
   { path: "/welcome", element: <Welcome /> },
