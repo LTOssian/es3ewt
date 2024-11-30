@@ -45,7 +45,10 @@ describe("GetFileById:unit", () => {
 
     // Register mocks in the DI container
     container.registerInstance("FileStorage", minioClientMock);
-    container.registerInstance("Database", getFileByIdRepositoryMock);
+    container.registerInstance(
+      "GetFileByIdRepository",
+      getFileByIdRepositoryMock,
+    );
   });
 
   afterEach(() => {
